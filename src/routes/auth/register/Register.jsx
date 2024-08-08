@@ -40,10 +40,11 @@ const Register = () => {
       span: 12,
     }}
     style={{
-      maxWidth: 600,
+      width: "100%",
+      maxWidth: 800,
     }}
     wrapperCol={{
-      span: 24,
+      span: 35,
     }}
     initialValues={{
       remember: true,
@@ -52,37 +53,42 @@ const Register = () => {
     onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
-    <Form.Item
-
-      label="FirstName"
-      name="first_name"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your FirstName!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+  <div className='flex items-center w-full gap-2'>
     
+  <Form.Item
+
+label="FirstName"
+name="first_name"
+className='w-full'
+rules={[
+  {
+    required: true,
+    message: 'Please input your FirstName!',
+  },
+]}
+>
+<Input />
+</Form.Item>
+
+<Form.Item
+
+label="LastName"
+name="last_name"
+className='w-full'
+rules={[
+  {
+    required: true,
+    message: 'Please input your LastName!',
+  },
+]}
+>
+<Input />
+</Form.Item>
+  </div>
+
     <Form.Item
 
-      label="LastName"
-      name="last_name"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your LasttName!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-
-    className='w-[350px]'
+    className='w-full'
       label="Username"
       name="username"
       rules={[
@@ -97,7 +103,7 @@ const Register = () => {
     
     <Form.Item
 
-    className='w-[350px]'
+    className='w-full'
       label="Email"
       name="email"
       rules={[

@@ -4,12 +4,9 @@ const baseQuery = async (args, api, extraOptions) => {
      const { dispatch } = api
 
      const rawBaseQuery = fetchBaseQuery({
-          baseUrl: "http://167.71.71.212:3000",
+          baseUrl: "http://167.71.71.212:3000/docs",
           prepareHeaders: (headers) => {
                const token = localStorage.getItem("token")
-               headers.set("Content-Type", "application/json")
-               headers.set("Access-Control-Allow-Origin", "http://localhost:5173/")
-               headers.set("Access-Control")
                if(token) {
                     headers.set("authorization", `Bearer ${token}`)
                }
