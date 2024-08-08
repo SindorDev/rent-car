@@ -1,5 +1,6 @@
 import { Button, Form, Input, Typography, Divider } from 'antd';
 import { Link} from 'react-router-dom';
+import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from '../../../validation';
 const { Title, Text } = Typography
 
 const Login = () => {
@@ -53,11 +54,17 @@ const Login = () => {
       <Form.Item
       label="Password"
       name="password"
+      hasFeedback={true}
       rules={[
         {
           required: true,
           message: 'Please input your password!',
         },
+        {
+          min: 8,
+          message: 'Password must be at least 8 characters long',
+        },
+        capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation
       ]}
     >
       <Input.Password />

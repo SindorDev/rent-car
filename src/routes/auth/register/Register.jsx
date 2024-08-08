@@ -2,8 +2,9 @@ import { Button, Divider, Form, Input, Typography } from 'antd';
 const { Title, Text } = Typography
 import { Link, } from 'react-router-dom';
 import { useSignUpMutation } from '../../../redux/api/userApi';
-import ModalComponent from "../../../components/AuthorizationModal/Modal"
+import ModalComponent from "../../../components/authorizationModal/Modal"
 import { useEffect, useState } from 'react';
+import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from "../../../validation/index"
 const Register = () => {
   const [open, setOpen] = useState(false);
   
@@ -118,13 +119,20 @@ rules={[
 
       <Form.Item
       label="Password"
+      hasFeedback={true}
       name="password"
       rules={[
         {
           required: true,
           message: 'Please input your password!',
         },
-      ]}
+        {
+          min: 8,
+          message: 'Password must be at least 8 characters',
+        },
+        capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation
+      ]
+    }
     >
       <Input.Password />
     </Form.Item>

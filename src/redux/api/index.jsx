@@ -4,7 +4,7 @@ const baseQuery = async (args, api, extraOptions) => {
      const { dispatch } = api
 
      const rawBaseQuery = fetchBaseQuery({
-          baseUrl: "http://167.71.71.212:3000/docs",
+          baseUrl: import.meta.env.VITE_BASE_URL,
           prepareHeaders: (headers) => {
                const token = localStorage.getItem("token")
                if(token) {

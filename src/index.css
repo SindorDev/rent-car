@@ -5,3 +5,36 @@
 .shadow-cm {
      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
+.slick-arrow::after, .slick-arrow::before {
+     color: black;
+}
+.slick-active h2 {
+    animation: k 0.5s 0.45s forwards;
+}
+
+
+.slick-active img {
+    animation: l 0.5s 0.45s forwards;
+}
+
+@keyframes k {
+    0% {
+        transform: translateY(-100%) scaleY(0.95);
+    }
+    100% {
+        transform: translateY(0px) scaleY(1);
+    }
+}
+
+@keyframes l {
+    0% {
+        transform: translateX(150px);
+    }
+    50% {
+        transform: translateX(-70px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
