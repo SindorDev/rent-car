@@ -5,6 +5,7 @@ const Menu = lazy(() => import("./auth/auth"))
 const Login = lazy(() => import("./auth/login/Login"))
 const Register = lazy(() => import("./auth/register/Register"))
 const Home = lazy(() => import("./home/Home"))
+
 const routesController = () => {
   return (
      <Routes>
