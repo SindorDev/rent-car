@@ -12,7 +12,6 @@ const Register = () => {
   const dispatch = useDispatch()
   const [signUp, {isSuccess, isLoading, data}] = useSignUpMutation();
 
-
   const onFinish = async (values) => {
     console.log(values);  
     signUp(values)
