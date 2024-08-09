@@ -29,7 +29,8 @@ const data = [
 ]
 
 const Hero = () => (
-  <Carousel arrows autoplay infinite={true} dots={false}>
+
+<Carousel arrows autoplay infinite={true} dots={false}>
     {data.map((item) => (
       <div key={item.id} className="w-full !flex items-center justify-center min-h-screen relative ">
         <div className='relative h-full w-full'>
@@ -43,4 +44,5 @@ const Hero = () => (
     ))}
   </Carousel>
 );
+
 export default Hero;
