@@ -1,6 +1,6 @@
 import { lazy } from "react"
 import { Route, Routes } from "react-router-dom"
-import { SuspenseElement as Suspense } from "../utils"
+import { SuspenseElement as Suspense } from "../utils/index"
 const Menu = lazy(() => import("./auth/auth"))
 const Login = lazy(() => import("./auth/login/Login"))
 const Register = lazy(() => import("./auth/register/Register"))
