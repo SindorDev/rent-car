@@ -5,22 +5,25 @@ import { useSignUpMutation } from '../../../redux/api/userApi';
 import ModalComponent from "../../../components/authorizationModal/Modal"
 import { useEffect, useState } from 'react';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from "../../../validation/index"
+import { signUpUser } from '../../../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
 const Register = () => {
   const [open, setOpen] = useState(false);
-  
+  const dispatch = useDispatch()
   const [signUp, {isSuccess, isLoading, data}] = useSignUpMutation();
 
 
-  console.log(data);
   const onFinish = async (values) => {
     console.log(values);  
     signUp(values)
   };
 
   useEffect(() => {
-    
+    if(isSuccess) {
+      dispatch(signUpUser(data))
+    }
   }, [isSuccess])
-
+  console.log(data);
   
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);

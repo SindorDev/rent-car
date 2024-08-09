@@ -1,14 +1,28 @@
 import { Button, Form, Input, Typography, Divider } from 'antd';
 import { Link} from 'react-router-dom';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from '../../../validation';
+import { useLoginInMutation } from '../../../redux/api/userApi';
+import { useEffect } from 'react';
+import { logIn } from '../../../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
 const { Title, Text } = Typography
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const [loginIn, {data , isSuccess, isLoading}] = useLoginInMutation()
 
   const onFinish = async (values) => {
     console.log(values)
+    loginIn(values)
   };
 
+  useEffect(() => {
+    if(isSuccess) {
+      dispatch(logIn(data))
+    }
+  }, [isSuccess])
+
+  console.log(data);
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -76,7 +90,7 @@ const Login = () => {
       }}
       className=' mt-[35px]'
     >
-      <Button type="primary"  htmlType="submit" className='w-full'>
+      <Button loading={isLoading} disabled={isLoading} type="primary"  htmlType="submit" className='w-full'>
         Login
       </Button>
     </Form.Item>
