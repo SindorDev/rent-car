@@ -2,7 +2,7 @@ import { Button, Divider, Form, Input, Typography } from 'antd';
 const { Title, Text } = Typography
 import { Link, } from 'react-router-dom';
 import { useSignUpMutation } from '../../../redux/api/userApi';
-import ModalComponent from "../../../components/authorizationModal/Modal.jsx"
+import ModalComponent from "../../../components/authorizationModal/Modal"
 import { useEffect, useState } from 'react';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from "../../../validation/index"
 import { signUpUser } from '../../../redux/slices/authSlice';
