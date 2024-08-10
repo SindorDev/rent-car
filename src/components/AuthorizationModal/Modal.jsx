@@ -1,15 +1,33 @@
 /* eslint-disable react/prop-types */
-import { Form, Modal, Input, Button } from 'antd';
+import {  Modal, Input, message,  } from 'antd';
+import { useVerifyOtpMutation } from '../../redux/api/userApi';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ModalComponent = ({open, setOpen}) => {
+const ModalComponent = ({open, email, setOpen}) => {
+  const navigate = useNavigate()
+  const [verifyOtp, {data,}] = useVerifyOtpMutation();
 
-     const onFinish = (values) => {
-          console.log(values);
-     }
      const handleCancel = () => {
           setOpen(false);
      };
 
+     const onChange = (text) => {
+      verifyOtp({email, otp: text})
+    };
+
+    useEffect(() => {
+      if(data && data.statusCode === 200) {
+        setOpen(false);
+        message.success(data.message)
+        navigate("/auth")
+      }
+    }, [data])
+  
+    console.log(data);
+    const sharedProps = {
+      onChange,
+    };
      return (
           <Modal
           title="Verify Account"
@@ -17,26 +35,7 @@ const ModalComponent = ({open, setOpen}) => {
           onCancel={handleCancel}
           footer={false}
         >
-          <Form onFinish={onFinish} layout='vertical'>
-               
-            <Form.Item label="Enter Your Email">
-               <Input />
-          </Form.Item>
-            <Form.Item label="Enter Your Check Code" hasFeedback validateStatus="success">
-               <Input.OTP />
-          </Form.Item>
-          
-    <Form.Item
-      wrapperCol={{
-        span: 36,
-      }}
-      className='mt-[35px]'
-    >
-      <Button  type="primary" htmlType="submit" className='w-full '>
-        Submit
-      </Button>
-    </Form.Item>
-          </Form>
+           <Input.OTP  {...sharedProps} />
         </Modal>
   )
 }

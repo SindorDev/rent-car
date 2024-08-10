@@ -5,7 +5,7 @@ const userApi = api.injectEndpoints({
          
           loginIn : build.mutation({
                query: (body) => ({
-                    url: "/auth/login",
+                    url: "/auth/signin",
                     method: "POST",
                     body
                }), 
@@ -13,7 +13,7 @@ const userApi = api.injectEndpoints({
           }),
           signUp : build.mutation({
                query: (body) => ({
-                    url: "/auth/register",
+                    url: "/auth/signup",
                     method: "POST",
                     body
                }), 
@@ -21,7 +21,7 @@ const userApi = api.injectEndpoints({
           }),
           verifyOtp : build.mutation({
                query: (body) => ({
-                    url: "/auth/verify-otp",
+                    url: "auth/otp-verify",
                     method: "POST",
                     body
                }), 

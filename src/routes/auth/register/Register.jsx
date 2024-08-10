@@ -1,29 +1,28 @@
-import { Button, Divider, Form, Input, Typography } from 'antd';
+import { Button, Divider, Form, Input, InputNumber, message, Typography } from 'antd';
 const { Title, Text } = Typography
 import { Link, } from 'react-router-dom';
 import { useSignUpMutation } from '../../../redux/api/userApi';
 import ModalComponent from "../../../components/authorizationModal/Modal"
 import { useEffect, useState } from 'react';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from "../../../validation/index"
-import { signUpUser } from '../../../redux/slices/authSlice';
-import { useDispatch } from 'react-redux';
 const Register = () => {
+  const [email, setEmail] = useState("")
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch()
-  const [signUp, {isSuccess, isLoading, data}] = useSignUpMutation();
+  const [signUp, {isLoading, data}] = useSignUpMutation();
 
   const onFinish = async (values) => {
     console.log(values);  
     signUp(values)
+    setEmail(values.email)
   };
 
   useEffect(() => {
-    if(isSuccess) {
-      dispatch(signUpUser(data))
+    if(data && data.statusCode === 201) {
+      setOpen(true)
+      message.success(data.message)
     }
-  }, [isSuccess])
-  console.log(data);
-  
+  }, [data])
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -32,11 +31,10 @@ const Register = () => {
   return (
     <>
     
-    <div className='w-full flex justify-center items-center min-h-screen'>
-          <div className='shadow-cm flex-col  rounded-[10px] w-full max-w-[500px] p-[20px] flex items-center justify-center'>
+    <div className='w-full flex justify-center items-center min-h-screen p-5'>
+          <div className='shadow-cm flex-col  rounded-[10px] w-full max-w-[500px] p-5 flex items-center justify-center'>
       <Title>Register</Title>
 <Form
-
     name="basic"
     layout='vertical'
     labelCol={{
@@ -44,7 +42,6 @@ const Register = () => {
     }}
     style={{
       width: "100%",
-      maxWidth: 800,
     }}
     wrapperCol={{
       span: 35,
@@ -61,7 +58,7 @@ const Register = () => {
   <Form.Item
 
 label="FirstName"
-name="first_name"
+name="firstName"
 className='w-full'
 rules={[
   {
@@ -76,7 +73,7 @@ rules={[
 <Form.Item
 
 label="LastName"
-name="last_name"
+name="lastName"
 className='w-full'
 rules={[
   {
@@ -92,21 +89,6 @@ rules={[
     <Form.Item
 
     className='w-full'
-      label="Username"
-      name="username"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your UserName!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    
-    <Form.Item
-
-    className='w-full'
       label="Email"
       name="email"
       rules={[
@@ -118,27 +100,43 @@ rules={[
     >
       <Input />
     </Form.Item>
+      <div className='flex gap-3 w-full'>
+        
 
-      <Form.Item
-      label="Password"
-      hasFeedback={true}
-      name="password"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your password!',
-        },
-        {
-          min: 8,
-          message: 'Password must be at least 8 characters',
-        },
-        capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation
-      ]
-    }
-    >
-      <Input.Password />
-    </Form.Item>
+  <Form.Item
+  className='w-full'
+  label="Password"
+  hasFeedback={true}
+  name="password"
+  rules={[
+    {
+      required: true,
+      message: 'Please input your password!',
+    },
+    {
+      max: 6,
+      message: 'Password must be at  least 6 characters',
+    },
+    capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation
+  ]
+}
+>
+  <Input.Password />
+</Form.Item>
 
+<Form.Item
+  label="Age"
+  name="age"
+  rules={[
+    {
+      required: true,
+      message: 'Please input your Age!',
+    },
+  ]}
+>
+  <InputNumber />
+</Form.Item>
+      </div>
     <Form.Item
       wrapperCol={{
         span: 36,
@@ -157,7 +155,7 @@ rules={[
     </div>
       </div>
 
-      <ModalComponent open={open} setOpen={setOpen}/>
+      <ModalComponent open={open} email={email} setOpen={setOpen}/>
     </>
   )
 }

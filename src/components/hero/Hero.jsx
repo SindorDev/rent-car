@@ -29,7 +29,7 @@ const data = [
 ]
 
 const Hero = () => (
-
+<div className='mt-[150px]'>
 <Carousel arrows autoplay infinite={true} dots={false}>
     {data.map((item) => (
       <div key={item.id} className="w-full !flex items-center justify-center min-h-screen relative ">
@@ -43,6 +43,7 @@ const Hero = () => (
       </div>
     ))}
   </Carousel>
+</div>
 );
 
 export default Hero;

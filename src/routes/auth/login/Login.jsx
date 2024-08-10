@@ -1,5 +1,5 @@
 import { Button, Form, Input, Typography, Divider } from 'antd';
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from '../../../validation';
 import { useLoginInMutation } from '../../../redux/api/userApi';
 import { useEffect } from 'react';
@@ -8,41 +8,43 @@ import { useDispatch } from 'react-redux';
 const { Title, Text } = Typography
 
 const Login = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [loginIn, {data , isSuccess, isLoading}] = useLoginInMutation()
+  const [loginIn, {data , isLoading}] = useLoginInMutation()
 
   const onFinish = async (values) => {
-    console.log(values)
     loginIn(values)
   };
 
   useEffect(() => {
-    if(isSuccess) {
+    if(data && data.accessToken) {
       dispatch(logIn(data))
+      navigate("/")
     }
-  }, [isSuccess])
+  }, [data])
 
   console.log(data);
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   return (
-      <div className='w-full min-h-screen flex items-center justify-center'>
+      <div className='w-full min-h-screen flex px-5 items-center justify-center'>
         
-    <div className='shadow-cm rounded-[10px] w-full max-w-[500px]  py-[20px] flex-col flex items-center justify-center'>
+    <div className='shadow-cm rounded-[10px] w-full max-w-[500px]  p-5 flex-col flex items-center justify-center'>
       <Title>Login</Title>
 <Form
 
     name="basic"
     layout='vertical'
     style={{
-      maxWidth: 600,
+      width: "100%",
+      maxWidth: 400,
     }}
     labelCol={{
       span: 8,
     }}
     wrapperCol={{
-      span: 24,
+      span: 38,
     }}
     initialValues={{
       remember: true,
@@ -52,7 +54,6 @@ const Login = () => {
     autoComplete="off"
   >
     <Form.Item
-    className='w-[350px]'
       label="Email"
       name="email"
       rules={[
@@ -75,8 +76,8 @@ const Login = () => {
           message: 'Please input your password!',
         },
         {
-          min: 8,
-          message: 'Password must be at least 8 characters long',
+          max: 6,
+          message: 'Password must be at least 6 characters long',
         },
         capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation
       ]}

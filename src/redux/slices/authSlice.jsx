@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-     user: localStorage.getItem("User") || null,
+     user: JSON.parse(localStorage.getItem("User")) || null,
      token: localStorage.getItem("token") || null
 }
 
@@ -9,15 +9,11 @@ const authSlice = createSlice({
      name: "auth", 
      initialState,
      reducers: {
-          signUpUser: (state, action) => {
-               localStorage.setItem("User", JSON.stringify(action.payload.user))
-               state.user = action.payload.user
-          },
           logIn: (state, action) => {
-               state.token = action.payload.token,
-               state.user = action.payload.user
-               localStorage.setItem("token", action.payload.token)
-               localStorage.setItem("User", JSON.stringify(action.payload.user))
+               const user = JSON.parse(atob(action.payload.accessToken.split('.')[1]))
+               state.user = user
+               localStorage.setItem("User", JSON.stringify(user))
+               localStorage.setItem("token", action.payload.accessToken)
           },
           signOut: (state) => {
                state.token = null
