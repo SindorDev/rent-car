@@ -23,7 +23,6 @@ const Login = () => {
     }
   }, [data])
 
-  console.log(data);
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };

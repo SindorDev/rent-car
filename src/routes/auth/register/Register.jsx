@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, InputNumber, message, Typography } from 'antd';
+import { Button, Divider, Form, Input, message, Typography } from 'antd';
 const { Title, Text } = Typography
 import { Link, } from 'react-router-dom';
 import { useSignUpMutation } from '../../../redux/api/userApi';
@@ -58,7 +58,7 @@ const Register = () => {
   <Form.Item
 
 label="FirstName"
-name="firstName"
+name="first_name"
 className='w-full'
 rules={[
   {
@@ -73,7 +73,7 @@ rules={[
 <Form.Item
 
 label="LastName"
-name="lastName"
+name="last_name"
 className='w-full'
 rules={[
   {
@@ -125,16 +125,17 @@ rules={[
 </Form.Item>
 
 <Form.Item
-  label="Age"
-  name="age"
+  className='w-full'
+  label="Phone Number"
+  name="phone_number"
   rules={[
     {
       required: true,
-      message: 'Please input your Age!',
+      message: 'Please input your phone number!',
     },
   ]}
 >
-  <InputNumber />
+  <Input />
 </Form.Item>
       </div>
     <Form.Item

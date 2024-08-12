@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu, Modal } from "antd";
 const { Sider } = Layout;
 import home from "../../images/home.svg";
 import car from "../../images/car.svg";
@@ -12,10 +12,35 @@ import settings from "../../images/setting.svg";
 import help from "../../images/info-circle.svg";
 import dark from "../../images/briefcase.svg";
 import logOut from "../../images/logout.svg";
+import  { signOut }  from "../../redux/slices/authSlice";
 import { NavLink } from "react-router-dom";
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 const Sidebar = ({ collapsed }) => {
+  const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+  const [modalText, setModalText] = useState('Content of the modal');
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  
+  const handleOk = () => {
+    setModalText('The modal will be closed after two seconds');
+    setTimeout(() => {
+      dispatch(signOut())
+      setOpen(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+
   return (
+    <>
+    
     <div>
       <Sider
       style={{
@@ -84,12 +109,21 @@ const Sidebar = ({ collapsed }) => {
             },
           ]}
         />
-        <Button danger className="p-2 m-2" type="primary">
+        <Button danger onClick={showModal} className="p-2 py-5 m-2" type="primary">
           <img src={logOut} alt="log Out" />
           LogOut
         </Button>
       </Sider>
     </div>
+    <Modal
+        title="Title"
+        open={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>{modalText}</p>
+      </Modal>
+    </>
   );
 };
 

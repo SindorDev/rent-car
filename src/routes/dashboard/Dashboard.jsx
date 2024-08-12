@@ -14,6 +14,7 @@ const Dashboard = () => {
          style={{
            margin: '24px 16px',
            padding: 24,
+           borderRadius: 20,
            minHeight: 280,
            background: "#fff",
          }}

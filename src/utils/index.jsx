@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Spin, Flex,} from 'antd';
+import { Spin, Flex, Typography} from 'antd';
 import { Suspense } from "react"
+const {Title} = Typography
+
 const Loading = () => {
 
      return (
@@ -15,5 +17,18 @@ const Loading = () => {
 const SuspenseElement = ({children}) => {
      return ( <Suspense fallback={<Loading/>}> {children}  </Suspense>)
 }
+export const DashboardTitle = ({children}) => {
 
+    return (
+        <Title level={1}>{children}</Title>
+    )
+}
+
+export const Container = ({children}) => {
+     return (
+         <div className='main-container'>
+             {children}
+         </div>
+     )
+ }
 export { SuspenseElement, Loading }

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    scroll-behavior: smooth;
+}
+
 .shadow-cm {
      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -33,6 +37,16 @@
     background-color: #1677ff !important;
     color: #fff !important;
 }
+.main-container{
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+.ant-col-12 {
+    max-width: 100% !important;
+}
+
 @keyframes k {
     0% {
         transform: translateY(-100%) scaleY(0.95);
