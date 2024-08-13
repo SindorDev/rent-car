@@ -17,7 +17,7 @@ const CategorySidebar = ({model}) => {
   
   const onChangeModelType = (value) => {
     console.log(value);
-    setSearchParams({model: value})
+    setSearchParams({models: value})
   };
 
   const onChangeCarPerson = (value) => {

@@ -6,8 +6,8 @@ const carsApi = api.injectEndpoints({
             query: (params) => ({
                 url: "/cars",
                 params: {
-                    categories: params.categories,
-                    model: params.model,
+                    categories: params?.categories,
+                    model: params?.model,
                     ...params,
                 }
             })

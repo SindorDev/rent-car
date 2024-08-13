@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Categories = () => {
     const [searchParams] = useSearchParams();
-    const {data, isLoading} = useGetCarsQuery({categories: searchParams.getAll("categories"), model: searchParams.getAll("model")});
+    const {data, isLoading} = useGetCarsQuery({categories: searchParams.getAll("categories"), model: searchParams.getAll("models")});
   return (
     <div className="my-14">
         <Container>
