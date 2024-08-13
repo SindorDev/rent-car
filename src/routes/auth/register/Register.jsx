@@ -1,14 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { Button, Divider, Form, Input, message, Typography } from 'antd';
 const { Title, Text } = Typography
-import { Link, } from 'react-router-dom';
+import { Link, useNavigate, } from 'react-router-dom';
 import { useSignUpMutation } from '../../../redux/api/userApi';
-import ModalComponent from "../../../components/authorizationModal/ModalComponent";
+// import ModalComponent from "../../../components/authorizationModal/ModalComponent";
 import { useEffect, useState } from 'react';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from "../../../validation/index"
 const Register = () => {
   const [email, setEmail] = useState("")
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false);
-  const [signUp, {isLoading, data}] = useSignUpMutation();
+  const [signUp, {isLoading, isSuccess, data}] = useSignUpMutation();
 
   const onFinish = async (values) => {
     console.log(values);  
@@ -16,18 +18,14 @@ const Register = () => {
     setEmail(values.email)
   };
 
+
   useEffect(() => {
-    if(data && data.statusCode === 201) {
-      setOpen(true)
+    if(isSuccess) {
       message.success(data.message)
+      navigate("/auth")
     }
-  }, [data])
+  }, [data, isSuccess])
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
- 
   return (
     <>
     
@@ -50,7 +48,6 @@ const Register = () => {
       remember: true,
     }}
     onFinish={onFinish}
-    onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
   <div className='flex items-center w-full gap-2'>
@@ -114,28 +111,14 @@ rules={[
       message: 'Please input your password!',
     },
     {
-      max: 6,
-      message: 'Password must be at  least 6 characters',
+      min: 8,
+      message: 'Password must be at least 8 characters',
     },
     capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation
   ]
 }
 >
   <Input.Password />
-</Form.Item>
-
-<Form.Item
-  className='w-full'
-  label="Phone Number"
-  name="phone_number"
-  rules={[
-    {
-      required: true,
-      message: 'Please input your phone number!',
-    },
-  ]}
->
-  <Input />
 </Form.Item>
       </div>
     <Form.Item
@@ -156,7 +139,7 @@ rules={[
     </div>
       </div>
 
-      <ModalComponent open={open} email={email} setOpen={setOpen}/>
+      {/* <ModalComponent open={open} email={email} setOpen={setOpen}/> */}
     </>
   )
 }

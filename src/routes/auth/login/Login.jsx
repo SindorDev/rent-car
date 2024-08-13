@@ -10,22 +10,20 @@ const { Title, Text } = Typography
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [loginIn, {data , isLoading}] = useLoginInMutation()
+  const [loginIn, {data, isSuccess, isLoading}] = useLoginInMutation()
 
   const onFinish = async (values) => {
     loginIn(values)
   };
 
   useEffect(() => {
-    if(data && data.accessToken) {
+    if(isSuccess && data.payload.accessToken) {
       dispatch(logIn(data))
       navigate("/")
     }
-  }, [data])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isSuccess])
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
       <div className='w-full min-h-screen flex px-5 items-center justify-center'>
         
@@ -49,7 +47,6 @@ const Login = () => {
       remember: true,
     }}
     onFinish={onFinish}
-    onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
     <Form.Item
@@ -75,7 +72,7 @@ const Login = () => {
           message: 'Please input your password!',
         },
         {
-          max: 6,
+          min: 6,
           message: 'Password must be at least 6 characters long',
         },
         capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation

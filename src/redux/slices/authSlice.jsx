@@ -10,10 +10,10 @@ const authSlice = createSlice({
      initialState,
      reducers: {
           logIn: (state, action) => {
-               const user = JSON.parse(atob(action.payload.accessToken.split('.')[1]))
+               const user = action.payload.payload.user
                state.user = user
                localStorage.setItem("User", JSON.stringify(user))
-               localStorage.setItem("token", action.payload.accessToken)
+               localStorage.setItem("token", action.payload.payload.accessToken)
           },
           signOut: (state) => {
                state.token = null

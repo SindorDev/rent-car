@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { lazy, useEffect } from "react"
-import { Route, Routes, useLocation } from "react-router-dom"
+import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 import { SuspenseElement as Suspense } from "../utils/index"
 import Footer from "../components/footer/Footer"
+import { useSelector } from "react-redux"
 
 const Menu = lazy(() => import("./auth/auth"))
 const Login = lazy(() => import("./auth/login/Login"))
@@ -14,29 +15,31 @@ const Dashboard = lazy(() => import("./dashboard/Dashboard"))
 const Cars = lazy(() => import("./dashboard/cars/Cars"))
 const Profile = lazy(() => import("./dashboard/profile/Profile"))
 const Categories = lazy(() => import("./categories/Categories"))
+const CreateCar = lazy(() => import("../components/create-modal/CreateComponent"))
 const routesController = () => {
-     const {pathName} = useLocation();
-
+     const {pathname} = useLocation();
+     const {token} = useSelector(state => state.auth)
      useEffect(() => {
           window.scrollTo(0, 0)
-     }, [pathName])
+     }, [pathname])
 
   return (
      <>
      
      <Routes>
           <Route element={<Header/>}>
-          <Route path="/" element={<Suspense><Home/></Suspense>}/>
-          <Route path="/dashboard" element={<Suspense> <Private /> </Suspense>}>
+          <Route path="" element={<Suspense><Home/></Suspense>}/>
+          <Route path="dashboard" element={<Suspense> <Private /> </Suspense>}>
                <Route path="" element={<Suspense> <Dashboard/> </Suspense>}>
                     <Route path="cars" element={<Suspense> <Cars/> </Suspense>}/>
                     <Route path="profile" element={<Suspense> <Profile/> </Suspense>}/>
                </Route>
           </Route>
           <Route path="categories" element={<Suspense> <Categories/> </Suspense>}/>
+          <Route path="/create-car" element={<Suspense><CreateCar/></Suspense>}/>
           </Route>
 
-          <Route path="/auth" element={<Suspense><Menu/></Suspense>}>
+          <Route path="auth" element={token ? <Navigate to={"/dashboard"}/> : <Suspense><Menu/></Suspense>}>
                <Route path="" element={<Suspense><Login/></Suspense>}/>
                <Route path="register" element={<Suspense><Register/></Suspense>}/>
           </Route>

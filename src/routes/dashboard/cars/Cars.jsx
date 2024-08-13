@@ -1,37 +1,21 @@
-import { Button } from "antd"
+import { Button } from "antd";
 import {DashboardTitle} from "../../../utils/index"
-import { useState } from "react";
-import CreateModalComponent from "../../../components/create-modal/CreateModalComponent";
+import { Link, } from "react-router-dom";
 
-const Cars = () => {
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const showModal = () => {
-    setModalVisible(true);
-};
-
-const handleCancel = () => {
-    setModalVisible(false);
-};
-
-const handleOk = (formData) => {
-    console.log('Saved Data:', formData);
-    setModalVisible(false);
-};
+const Cars = () => {  
 
   return (
     <div>
       <div className="flex items-center justify-between">
       <DashboardTitle>Cars</DashboardTitle>
-      <Button onClick={showModal} type="primary">Create Cars</Button>
+      <Link to={"/create-car"} >
+        <Button type="primary">
+        Create Cars
+        </Button>
+      </Link>
       </div>
 
 
-      <CreateModalComponent
-                visible={modalVisible}
-                handleCancel={handleCancel}
-                handleOk={handleOk}
-            />
     </div>
   )
 }

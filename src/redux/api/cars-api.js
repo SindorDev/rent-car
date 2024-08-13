@@ -3,8 +3,12 @@ import {api} from "./index";
 const carsApi = api.injectEndpoints({
     endpoints: (build) => ({
         getCars: build.query({
-            query: () => ({
-                url: "/cars"
+            query: (params) => ({
+                url: "/cars",
+                params: {
+                    categories: params.categories,
+                    ...params,
+                }
             })
         })
     })
