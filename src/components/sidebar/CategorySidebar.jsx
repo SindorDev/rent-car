@@ -5,7 +5,7 @@ import { Loading } from "../../utils";
 import { useGetCategoriesQuery } from "../../redux/api/categories-api";
 import { useSearchParams } from "react-router-dom";
 
-const CategorySidebar = () => {
+const CategorySidebar = ({model}) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const { data, isLoading } = useGetCategoriesQuery();
   const [minPrice, setMinPrice] = useState(0);
@@ -13,6 +13,11 @@ const CategorySidebar = () => {
 
   const onChangeCarType = (value) => {
     setSearchParams({categories: value})
+  };
+  
+  const onChangeModelType = (value) => {
+    console.log(value);
+    setSearchParams({model: value})
   };
 
   const onChangeCarPerson = (value) => {
@@ -50,6 +55,7 @@ const CategorySidebar = () => {
     },
   ];
 
+
   return (
     <div className="flex w-[320px] shrink-0 flex-col gap-14 rounded-[10px] bg-white p-5 shadow-lg">
       <div className="flex flex-col gap-7">
@@ -85,12 +91,12 @@ const CategorySidebar = () => {
         ) : (
           <Checkbox.Group
             className="flex flex-col gap-2 font-semibold capitalize text-[#596780]"
-            onChange={onChangeCarType}
+            onChange={onChangeModelType}
           >   
         <>
         {
-          data?.payload.map(category => 
-            <Checkbox  key={category._id} value={category._id} >{category.name}</Checkbox>
+          model?.map(category => 
+            <Checkbox  key={category._id} value={category.model} >{category.model}</Checkbox>
           )
         }
         </>
