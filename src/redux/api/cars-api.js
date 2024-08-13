@@ -11,8 +11,13 @@ const carsApi = api.injectEndpoints({
                     ...params,
                 }
             })
+        }),
+        getDetailsCar: build.mutation({
+            query: (id) => ({
+                url: `cars/${id}`
+            })
         })
     })
 });
 
-export const { useGetCarsQuery } = carsApi;
+export const { useGetCarsQuery, useGetDetailsCarMutation } = carsApi;

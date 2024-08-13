@@ -1,72 +1,85 @@
-import { useState } from 'react';
-import { Button, message, Steps, theme } from 'antd';
-const steps = [
-  {
-    title: 'First',
-    content: 'First-content',
-  },
-  {
-    title: 'Second',
-    content: 'Second-content',
-  },
-  {
-    title: 'Last',
-    content: 'Last-content',
-  },
-];
-const CreateComponent = () => {
-  const { token } = theme.useToken();
+import  { useState } from "react";
+import { Steps, Button, Form, message } from "antd";
+import stepOne from "../stepOne/stepOne";
+import stepTwo from "../stepTwo/stepTwo";
+import stepThree from "../stepThree/stepThree";
+import stepFour from "../stepFour/stepFour";
+const { Step } = Steps;
+
+const StepForm = () => {
   const [current, setCurrent] = useState(0);
+  const [form] = Form.useForm();
+
+  const steps = [
+    {
+
+      title: 'Name',
+      content: stepOne(form, message),
+    },
+    {
+
+      title: 'Technical Details',
+      content: stepTwo(),
+    },
+    {
+
+      title: 'Pricing and Colors',
+      content: stepThree(),
+    },
+    {
+
+      title: 'Model and Category',
+      content: stepFour(),
+    },
+
+  ];
+
   const next = () => {
-    setCurrent(current + 1);
+    form.validateFields().then(() => {
+      setCurrent(current + 1);
+    })
   };
+
   const prev = () => {
     setCurrent(current - 1);
   };
-  const items = steps.map((item) => ({
-    key: item.title,
-    title: item.title,
-  }));
-  const contentStyle = {
-    lineHeight: '260px',
-    textAlign: 'center',
-    color: token.colorTextTertiary,
-    backgroundColor: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    border: `1px dashed ${token.colorBorder}`,
-    marginTop: 16,
+
+  const onFinish = (values) => {
+    message.success('Form submitted successfully!');
+    console.log('Form data:', values);
   };
+
   return (
-    <>
-      <Steps current={current} items={items} />
-      <div style={contentStyle}>{steps[current].content}</div>
-      <div
-        style={{
-          marginTop: 24,
-        }}
-      >
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button type="primary" onClick={() => message.success('Processing complete!')}>
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button
-            style={{
-              margin: '0 8px',
-            }}
-            onClick={() => prev()}
-          >
-            Previous
-          </Button>
-        )}
+    <div className="w-full max-w-[1200px] mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+      <Steps current={current}>
+        {steps.map((item) => (
+          <Step key={item.title} title={item.title} />
+        ))}
+      </Steps>
+      <div className="my-6">
+        <Form form={form} layout="vertical" onFinish={onFinish}>
+          {steps[current].content}
+          <div className="flex justify-between mt-6">
+            {current > 0 && (
+              <Button onClick={prev}>
+                Previous
+              </Button>
+            )}
+            {current < steps.length - 1 && (
+              <Button type="primary" onClick={next}>
+                Next
+              </Button>
+            )}
+            {current === steps.length - 1 && (
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            )}
+          </div>
+        </Form>
       </div>
-    </>
+    </div>
   );
 };
-export default CreateComponent;
+
+export default StepForm;
