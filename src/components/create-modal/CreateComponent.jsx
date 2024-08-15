@@ -1,85 +1,96 @@
-import  { useState } from "react";
-import { Steps, Button, Form, message } from "antd";
-import stepOne from "../stepOne/stepOne";
-import stepTwo from "../stepTwo/stepTwo";
-import stepThree from "../stepThree/stepThree";
-import stepFour from "../stepFour/stepFour";
-const { Step } = Steps;
+import { useState } from "react";
+import { Button, message, Steps } from "antd";
+import BasicInformations from "../../components/stepOne/stepOne";
+import VisualInformations from "../../components/stepTwo/stepTwo";
+import TechnicalInformations from "../../components/stepThree/stepThree";
 
-const StepForm = () => {
+const steps = [
+  {
+    title: "Basic Information",
+    content: (carData, setCarData) => <BasicInformations carData={carData} setCarData={setCarData} />,
+  },
+  {
+    title: "Visual and Pricing Information",
+    content: (carData, setCarData) => <VisualInformations carData={carData} setCarData={setCarData} />,
+  },
+  {
+    title: "Technical Information",
+    content: (carData, setCarData) =>  <TechnicalInformations carData={carData} setCarData={setCarData} />,
+  },
+];
+
+const Create = () => {
+  const [carData, setCarData] = useState({
+    name:"",
+    images: [],
+    description: "",
+    category: "",
+    models: "",
+    color: "", 
+    transmission: "",
+    seats: 0,
+    year: 0,
+    fuel: 0,
+    price: 0,
+    rent_price: 0,
+    discount: 0,
+  })
   const [current, setCurrent] = useState(0);
-  const [form] = Form.useForm();
-
-  const steps = [
-    {
-
-      title: 'Name',
-      content: stepOne(form, message),
-    },
-    {
-
-      title: 'Technical Details',
-      content: stepTwo(),
-    },
-    {
-
-      title: 'Pricing and Colors',
-      content: stepThree(),
-    },
-    {
-
-      title: 'Model and Category',
-      content: stepFour(),
-    },
-
-  ];
-
   const next = () => {
-    form.validateFields().then(() => {
-      setCurrent(current + 1);
-    })
+    setCurrent(current + 1);
   };
 
   const prev = () => {
     setCurrent(current - 1);
   };
 
-  const onFinish = (values) => {
-    message.success('Form submitted successfully!');
-    console.log('Form data:', values);
-  };
+  const items = steps.map((item) => ({
+    key: item.title,
+    title: item.title,
+  }));
+
+  console.log(carData);
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
-      <Steps current={current}>
-        {steps.map((item) => (
-          <Step key={item.title} title={item.title} />
-        ))}
-      </Steps>
-      <div className="my-6">
-        <Form form={form} layout="vertical" onFinish={onFinish}>
-          {steps[current].content}
-          <div className="flex justify-between mt-6">
+    <div className="container flex items-center justify-center pt-[50px]">
+    <div className="flex flex-col justify-between shadow-cm gap-10 rounded-xl max-w-[800px] bg-white p-10 lg:flex-row">
+      <div className="flex h-auto flex-col justify-between lg:flex-1">
+        <Steps current={current} items={items} className="mb-10" />
+
+        <div className="flex h-auto flex-1 flex-col justify-between">
+          <div>{steps[current].content(carData, setCarData)}</div>
+
+          <div className="mt-10 flex justify-end space-x-3">
             {current > 0 && (
-              <Button onClick={prev}>
+              <Button size="large" onClick={() => prev()}>
                 Previous
               </Button>
             )}
-            {current < steps.length - 1 && (
-              <Button type="primary" onClick={next}>
+            {current < steps.length - 1 ? (
+              <Button
+                size="large"
+                type="primary"
+                onClick={() => next()}
+                className="bg-blue-500"
+              >
                 Next
               </Button>
-            )}
-            {current === steps.length - 1 && (
-              <Button type="primary" htmlType="submit">
-                Submit
+            ) : (
+              <Button
+                size="large"
+                type="primary"
+                onClick={() => message.success("Processing complete!")}
+                className="bg-green-500"
+              >
+                Done
               </Button>
             )}
           </div>
-        </Form>
+        </div>
       </div>
     </div>
+  </div>
   );
 };
 
-export default StepForm;
+export default Create;

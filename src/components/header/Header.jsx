@@ -1,3 +1,4 @@
+import { MdSpaceDashboard } from "react-icons/md"; 
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Layout } from "antd";
@@ -47,6 +48,10 @@ const HeaderComponent = () => {
             
             <NavLink to={"notifications"} className="flex items-center justify-center border-[1px] p-[7px] rounded-full ">
               <img src={bell} alt="bell" />
+            </NavLink>
+            
+            <NavLink to={"/dashboard"} className="flex items-center justify-center border-[1px] p-[7px] rounded-full ">
+              <MdSpaceDashboard size={27} color="#3D5278" />
             </NavLink>
             
             <NavLink to={"/dashboard/profile"}>

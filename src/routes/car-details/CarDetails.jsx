@@ -4,9 +4,6 @@ import { useEffect } from "react";
 const CarDetails = () => {
 
   const [getDetailsCar, {data}] = useGetDetailsCarMutation()
-
-  console.log(data);
-
   const {id} = useParams()
 
   useEffect(() => {
