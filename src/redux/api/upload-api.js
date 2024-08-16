@@ -8,9 +8,17 @@ const modelApi = api.injectEndpoints({
                     method: "POST",
                     body
                })
-          })
+          }),
+          sendThumbnailFile: build.mutation({
+               query: (body) => ({
+                    url: "/upload/single",
+                    method: "POST",
+                    body
+               })
+          }),
+          
      })
 })
 
 
-export const { useSendUploadFileMutation } = modelApi
+export const { useSendUploadFileMutation, useSendThumbnailFileMutation } = modelApi

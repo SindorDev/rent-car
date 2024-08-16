@@ -1,18 +1,20 @@
+/* eslint-disable react/prop-types */
 import { Form, Input, Upload, InputNumber, ColorPicker } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useForm } from "antd/es/form/Form";
-import { useSendUploadFileMutation } from "../../redux/api/upload-api";
+import { useSendUploadFileMutation, useSendThumbnailFileMutation } from "../../redux/api/upload-api";
 
 // eslint-disable-next-line no-unused-vars
-const VisualInformations = (carData, setCarData) => {
+const VisualInformations = ({carData, setCarData}) => {
 
+    // eslint-disable-next-line no-unused-vars
     const [sendUploadFile, {data}] = useSendUploadFileMutation()
-
+    const [sendThumbnailFile, {data: thumbnailData}] = useSendThumbnailFileMutation()
   const [form] = useForm()
 
   const handleFormChange = () => {
     const values = form.getFieldsValue()
-    console.log(values);
+    setCarData({...carData, ...values})
   }
 
   const handleUploadFiles = ({file, fileList}) => {
@@ -22,13 +24,21 @@ const VisualInformations = (carData, setCarData) => {
       for (let i = 0; i < fileList.length; i++) {
         formData.append("files", fileList[i].originFileObj) 
       }
-
       sendUploadFile(formData)
-      console.log(fileList);
+      setCarData({...carData, images: data})
     }
   }
 
-  console.log(data);
+  console.log(thumbnailData);
+  const handleThumbnailFiles = ({file}) => {
+    if(file.status !== "uploading") {
+      const formData = new FormData()
+      formData.append("files", file)
+      sendThumbnailFile(formData)
+      setCarData({...carData, thumbnail: thumbnailData})
+    }
+  }
+
   return (
     <Form form={form} initialValues={carData} onValuesChange={handleFormChange} layout="vertical" className="flex flex-col" size="large">
       <Form.Item
@@ -36,7 +46,7 @@ const VisualInformations = (carData, setCarData) => {
         name="images"
         rules={[{ required: true, message: "Please upload car images" }]}
       >
-        <Upload listType="picture-card" onChange={handleUploadFiles} action={"http://13.51.206.62:8000/api/upload/files"} multiple beforeUpload={() => false}>
+        <Upload listType="picture-card" onChange={handleUploadFiles} multiple beforeUpload={() => false}>
           <div>
             <UploadOutlined />
             <div className="mt-2">Upload</div>
@@ -49,7 +59,7 @@ const VisualInformations = (carData, setCarData) => {
         name="thumbnail"
         rules={[{ required: true, message: "Please upload a thumbnail image" }]}
       >
-        <Upload listType="picture-card" beforeUpload={() => false}>
+        <Upload listType="picture-card" onChange={handleThumbnailFiles} beforeUpload={() => false}>
           <div>
             <UploadOutlined />
             <div className="mt-2">Upload</div>

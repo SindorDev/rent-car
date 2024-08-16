@@ -28,12 +28,12 @@ const Create = () => {
     models: "",
     color: "", 
     transmission: "",
-    seats: 0,
-    year: 0,
-    fuel: 0,
-    price: 0,
-    rent_price: 0,
-    discount: 0,
+    seats: null,
+    year: null,
+    fuel: null,
+    price: null,
+    rent_price: null,
+    discount: null,
   })
   const [current, setCurrent] = useState(0);
   const next = () => {
