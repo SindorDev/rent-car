@@ -30,7 +30,7 @@ const VisualInformations = (carData, setCarData) => {
 
   console.log(data);
   return (
-    <Form form={form} onChange={handleFormChange} layout="vertical" className="flex flex-col" size="large">
+    <Form form={form} initialValues={carData} onValuesChange={handleFormChange} layout="vertical" className="flex flex-col" size="large">
       <Form.Item
         label="Car Images"
         name="images"

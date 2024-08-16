@@ -13,7 +13,7 @@ const TechnicalInformations = ({carData, setCarData}) => {
   }
 
   return (
-    <Form form={form} onChange={handleFormChange} layout="vertical" className="space-y-6" size="large">
+    <Form form={form} initialValues={carData} onValuesChange={handleFormChange} layout="vertical" className="space-y-6" size="large">
       <Form.Item
         label="Fuel Type"
         name="fuel"

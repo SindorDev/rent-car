@@ -11,7 +11,7 @@ const Hero = () => {
     {data?.payload.map((item) => (
       <div key={item._id} className="w-full !flex items-center justify-center min-h-screen  relative ">
         <div className='relative w-full flex items-center justify-center'>
-        <div className='absolute top-[-430px] left-[100px] z-[1] h-full w-full'>
+        <div className='absolute top-[-430px] left-[100px] z-[-1] h-full w-full'>
           <h2 className='text-[170px] font-bold' style={{background: `linear-gradient(to bottom,  ${item.colors[0]} 0%, ${item.colors[1]} 100%)`, toBottom: 0, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>{item.model}</h2>
           <p className="text-[70px] ml-[52px] font-bold  " style={{background: `linear-gradient(to bottom,   ${item.colors[0]} 0%, ${item.colors[1]} 100%)`, toBottom: 0, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>{item.name}</p>
         </div>

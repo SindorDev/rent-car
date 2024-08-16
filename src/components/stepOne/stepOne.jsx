@@ -11,13 +11,12 @@ const BasicInformations = ({carData, setCarData}) => {
 
   const handleFormChange = () => {
     const values = form.getFieldsValue()
-    console.log(values);
     setCarData({...carData, ...values})
   }
 
   return (
     <div className="mt-5">
-      <Form form={form} onChange={handleFormChange} layout="vertical" className="flex flex-col" size="large">
+      <Form form={form} initialValues={carData} onValuesChange={handleFormChange} layout="vertical" className="flex flex-col" size="large">
         <div className="flex gap-5">
           <Form.Item
             className="flex-1"
