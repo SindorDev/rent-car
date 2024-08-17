@@ -17,6 +17,7 @@ const Profile = lazy(() => import("./dashboard/profile/Profile"))
 const Categories = lazy(() => import("./categories/Categories"))
 const CreateCar = lazy(() => import("../components/create-modal/CreateComponent"))
 const CarDetails = lazy(() => import("./car-details/CarDetails"))
+const Verify = lazy(() => import("./verify/Verify"))
 const routesController = () => {
      const {pathname} = useLocation();
      const {token} = useSelector(state => state.auth)
@@ -44,6 +45,7 @@ const routesController = () => {
           <Route path="auth" element={token ? <Navigate to={"/dashboard"}/> : <Suspense><Menu/></Suspense>}>
                <Route path="" element={<Suspense><Login/></Suspense>}/>
                <Route path="register" element={<Suspense><Register/></Suspense>}/>
+               <Route path="verify/:email" element={<Suspense><Verify/></Suspense>}/>
           </Route>
      </Routes>
      <Footer/>

@@ -3,7 +3,6 @@ import { Button, Divider, Form, Input, message, Typography } from 'antd';
 const { Title, Text } = Typography
 import { Link, useNavigate, } from 'react-router-dom';
 import { useSignUpMutation } from '../../../redux/api/userApi';
-// import ModalComponent from "../../../components/authorizationModal/ModalComponent";
 import { useEffect, useState } from 'react';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from "../../../validation/index"
 const Register = () => {
@@ -13,7 +12,6 @@ const Register = () => {
   const [signUp, {isLoading, isSuccess, data}] = useSignUpMutation();
 
   const onFinish = async (values) => {
-    console.log(values);  
     signUp(values)
     setEmail(values.email)
   };
@@ -22,7 +20,7 @@ const Register = () => {
   useEffect(() => {
     if(isSuccess) {
       message.success(data.message)
-      navigate("/auth")
+      navigate(`/auth/verify/${btoa(email)}`)
     }
   }, [data, isSuccess])
 
@@ -138,8 +136,6 @@ rules={[
   </Form>
     </div>
       </div>
-
-      {/* <ModalComponent open={open} email={email} setOpen={setOpen}/> */}
     </>
   )
 }

@@ -19,14 +19,14 @@ const userApi = api.injectEndpoints({
                }), 
                providesTags: ["User"],
           }),
-          // verifyOtp : build.mutation({
-          //      query: (body) => ({
-          //           url: "auth/otp-verify",
-          //           method: "POST",
-          //           body
-          //      }), 
-          //      providesTags: ["User"],
-          // }) 
+          verifyOtp : build.mutation({
+               query: (body) => ({
+                    url: "auth/otp-verify",
+                    method: "POST",
+                    body
+               }), 
+               providesTags: ["User"],
+          }) 
      })
 })
 
