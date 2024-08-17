@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { Button, message, Steps } from "antd";
 import BasicInformations from "../../components/stepOne/stepOne";
 import VisualInformations from "../../components/stepTwo/stepTwo";
 import TechnicalInformations from "../../components/stepThree/stepThree";
+import { useSendCarFormMutation } from "../../redux/api/cars-api"
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   {
@@ -20,20 +23,27 @@ const steps = [
 ];
 
 const Create = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [sendCarForm, {data, isSuccess}] = useSendCarFormMutation();
+  const navigate = useNavigate()
   const [carData, setCarData] = useState({
+
     name:"",
     images: [],
     description: "",
     category: "",
-    models: "",
+    model: "",
     color: "", 
     transmission: "",
     seats: null,
     year: null,
+    status: "active",
     fuel: null,
     price: null,
     rent_price: null,
-    discount: null,
+    dicount: null,
+    thumbnail: [],
+    usage_per_km: null
   })
   const [current, setCurrent] = useState(0);
   const next = () => {
@@ -49,9 +59,19 @@ const Create = () => {
     title: item.title,
   }));
 
-  console.log(carData);
+  const handleSendForm = () => {
+    sendCarForm(carData)
+    message.success("Processing complete!")
+  }
 
+  useEffect(() => {
+    if(isSuccess) {
+      message.success(data.message)
+      navigate("/")
+    }
+  }, [isSuccess])
   return (
+
     <div className="container flex items-center justify-center pt-[50px]">
     <div className="flex flex-col justify-between shadow-cm gap-10 rounded-xl max-w-[800px] bg-white p-10 lg:flex-row">
       <div className="flex h-auto flex-col justify-between lg:flex-1">
@@ -79,7 +99,7 @@ const Create = () => {
               <Button
                 size="large"
                 type="primary"
-                onClick={() => message.success("Processing complete!")}
+                onClick={handleSendForm}
                 className="bg-green-500"
               >
                 Done

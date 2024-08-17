@@ -25,7 +25,7 @@ const CarCard = ({car}) => {
       <div className="flex h-[190px] w-full items-center justify-center">
         <img
           className="object-contain"
-          src={car.images[0]}
+          src={car.thumbnail}
           alt="Car"
         />
       </div>

@@ -1,4 +1,4 @@
-import { Form, Input, Select } from "antd";
+import { Form, Input, InputNumber, Select } from "antd";
 import { useGetCategoriesQuery } from "../../redux/api/categories-api";
 import { useForm } from "antd/es/form/Form";
 const { TextArea } = Input;
@@ -65,7 +65,7 @@ const BasicInformations = ({carData, setCarData}) => {
               },
             ]}
           >
-            <Input min={"1900"} max={new Date().getFullYear() + 1}  placeholder="Enter manufacturing year" />
+            <InputNumber min={"1900"} max={new Date().getFullYear() + 1}  placeholder="Enter manufacturing year" />
           </Form.Item>
         </div>
 

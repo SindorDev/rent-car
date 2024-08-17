@@ -1,20 +1,95 @@
 /* eslint-disable react/prop-types */
-import { Form, Input, Upload, InputNumber, ColorPicker } from "antd";
+import { Form, Select, Tag, Upload, InputNumber } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useForm } from "antd/es/form/Form";
 import { useSendUploadFileMutation, useSendThumbnailFileMutation } from "../../redux/api/upload-api";
+import { useEffect } from "react";
+
+const options = [
+  { value: 'red' },
+  { value: 'blue' },
+  { value: 'green' },
+  { value: 'yellow' },
+  { value: 'orange' },
+  { value: 'purple' },
+  { value: 'pink' },
+  { value: 'brown' },
+  { value: 'black' },
+  { value: 'white' },
+  { value: 'gray' },
+  { value: 'cyan' },
+  { value: 'magenta' },
+  { value: 'maroon' },
+  { value: 'navy' },
+  { value: 'teal' },
+  { value: 'olive' },
+  { value: 'beige' },
+  { value: 'coral' },
+  { value: 'lavender' },
+  { value: 'gold' },
+  { value: 'lime' },
+  { value: 'silver' },
+  { value: 'indigo' },
+  { value: 'violet' },
+  { value: 'peach' },
+  { value: 'turquoise' },
+  { value: 'salmon' },
+  { value: 'ivory' },
+  { value: 'khaki' },
+  { value: 'plum' },
+  { value: 'orchid' },
+
+];
+
+const tagRender = (props) => {
+  const { label, value, closable, onClose } = props;
+  const onPreventMouseDown = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+  
+  return (
+        
+    <Tag
+    color={value}
+    onMouseDown={onPreventMouseDown}
+    closable={closable}
+    onClose={onClose}
+    style={{
+      marginInlineEnd: 4,
+    }}
+  >
+    {label}
+  </Tag>
+      )
+    
+}
 
 // eslint-disable-next-line no-unused-vars
 const VisualInformations = ({carData, setCarData}) => {
+  const [form] = useForm()
+  const [sendUploadFile, {data}] = useSendUploadFileMutation()
+  const [sendThumbnailFile, {data: thumbnailData}] = useSendThumbnailFileMutation()
 
     // eslint-disable-next-line no-unused-vars
-    const [sendUploadFile, {data}] = useSendUploadFileMutation()
-    const [sendThumbnailFile, {data: thumbnailData}] = useSendThumbnailFileMutation()
-  const [form] = useForm()
+
+
+    useEffect(() => {
+      if (data?.payload) {
+        setCarData(prevData => ({ ...prevData, images: data.payload }));
+      }
+    }, [data]);
+  
+    useEffect(() => {
+      if (thumbnailData?.payload) {
+        setCarData(prevData => ({ ...prevData, thumbnail: thumbnailData.payload }));
+      }
+    }, [thumbnailData]);
+
 
   const handleFormChange = () => {
     const values = form.getFieldsValue()
-    setCarData({...carData, ...values})
+    setCarData({...carData, ...values, images: carData.images, thumbnail: carData.thumbnail})
   }
 
   const handleUploadFiles = ({file, fileList}) => {
@@ -25,22 +100,22 @@ const VisualInformations = ({carData, setCarData}) => {
         formData.append("files", fileList[i].originFileObj) 
       }
       sendUploadFile(formData)
-      setCarData({...carData, images: data})
     }
+    setCarData({...carData, images: data?.payload})
   }
-
-  console.log(thumbnailData);
   const handleThumbnailFiles = ({file}) => {
     if(file.status !== "uploading") {
       const formData = new FormData()
-      formData.append("files", file)
+      formData.append("file", file)
       sendThumbnailFile(formData)
-      setCarData({...carData, thumbnail: thumbnailData})
     }
+    setCarData({...carData, thumbnail: thumbnailData?.payload})
   }
 
   return (
     <Form form={form} initialValues={carData} onValuesChange={handleFormChange} layout="vertical" className="flex flex-col" size="large">
+      <div className="flex items-end justify-between">
+      <div>
       <Form.Item
         label="Car Images"
         name="images"
@@ -66,9 +141,22 @@ const VisualInformations = ({carData, setCarData}) => {
           </div>
         </Upload>
       </Form.Item>
+      </div>
+      <div>
+      <Form.Item
+        className="flex-1 w-full"
+        label="Usage Per KM"
+        name="usage_per_km"
+        rules={[{ required: true, message: "Please enter the usage per km" }]}
+      >
+        <InputNumber className="w-full" placeholder="Enter usage per km" />
+      </Form.Item>
+      </div>
 
+      </div>
       <div className="flex items-center gap-5">
         <Form.Item
+
           className="flex-1"
           label="Primary Color"
           name="color"
@@ -76,17 +164,29 @@ const VisualInformations = ({carData, setCarData}) => {
             { required: true, message: "Please enter the primary color" },
           ]}
         >
-          <ColorPicker defaultValue="#1677ff" size="large" showText />
-          {/* <Input placeholder="Enter primary color" /> */}
+           <Select
+      style={{
+        width: 120,
+      }}
+      options={options}
+    />
         </Form.Item>
 
         <Form.Item
+
           className="flex-1"
           label="Available Colors (HEX Code)"
           name="colors"
           rules={[{ required: true, message: "Please enter available colors" }]}
-        >
-          <Input placeholder="Enter available colors (comma separated)" />
+        >   
+       <Select
+    mode="multiple"
+    tagRender={tagRender}
+    style={{
+      width: '100%',
+    }}
+    options={options}
+  />
         </Form.Item>
       </div>
 
@@ -125,13 +225,13 @@ const VisualInformations = ({carData, setCarData}) => {
 
         <Form.Item
           className="flex-1"
-          label="Discount Rent Price"
-          name="discount_rent_price"
+          label="Discount Rent Car"
+          name="dicount"
           rules={[{ required: false }]}
         >
           <InputNumber
             min={0}
-            formatter={(value) => `$ ${value}`}
+            formatter={(value) => `${value}`}
             parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
             placeholder="Enter discount rent price (optional)"
             className="w-full"

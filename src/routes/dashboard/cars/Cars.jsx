@@ -1,24 +1,36 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import {DashboardTitle} from "../../../utils/index"
-import { Link, } from "react-router-dom";
+import { Link, useNavigate, } from "react-router-dom";
 import TableComponent from "../../../components/table/Table";
-import { useState } from "react";
-import { useGetCarsQuery } from "../../../redux/api/cars-api";
+import { useEffect, useState } from "react";
+import { useGetCarsQuery, useDeleteCarsMutation } from "../../../redux/api/cars-api";
 
 const Cars = () => {  
+  const navigate = useNavigate()
   const { data } = useGetCarsQuery();
-  
-
-  console.log(data); // Check if data is being fetched correctly
-
+  const [deleteCar, {data: deleteCarData, isSuccess}] = useDeleteCarsMutation();
   const [tableParams, setTableParams] = useState({
+
     pagination: {
       current: 1,
-      pageSize: 5,
+      pageSize: 20,
     },
   });
 
+  const handleCarDelete = (id) => { 
+    deleteCar(id)
+  }
+  useEffect(() => {
+    
+  if(isSuccess) {
+    message.success(deleteCarData.message);
+    navigate("/")
+  }
+  }, [isSuccess])
+
   const columns = [
+
+
     {
       count: 1,
       title: "No",
@@ -30,17 +42,51 @@ const Cars = () => {
     },
     {
       key: "name",
-      title: "Product Name",
+      title: "Name",
       dataIndex: "name",
       render: (name) => `${name}`,
+    },
+    
+    {
+      key: "model",
+      title: " Model",
+      dataIndex: "model",
+      render: (model) => `${model}`,
+    },
+    
+    {
+      key: "price",
+      title: "Price",
+      dataIndex: "price",
+      render: (price) => `$${price}`,
+    },
+    
+    {
+      key: "Rent price",
+      title: "Rent Price",
+      dataIndex: "rent_price",
+      render: (rent_price) => `$${rent_price}`,
+    },
+    
+    {
+      key: "seats",
+      title: "Seats",
+      dataIndex: "seats",
+      render: (seats) => `${seats}`,
     },
     {
       key: "images",
       title: "Images",
       dataIndex: "images",
-      render: (images) => (
-        <img src={`${images[0]}`} width={50} alt="product_name" />
+      render: (thumbnail) => (
+        <img src={thumbnail} width={50} alt="name" />
       ),
+    },
+    {
+      key: "transmission",
+      title: "Transmission",
+      dataIndex: "transmission",
+      render: (transmission) => `${transmission}`,
     },
     {
       key: "Action",
@@ -51,6 +97,7 @@ const Cars = () => {
           <Button
             danger
             type="primary"
+            onClick={() => {handleCarDelete(product._id)}}
           >
             Delete
           </Button>

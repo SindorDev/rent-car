@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import { Container, Loading } from "../../utils";
 import { Link } from "react-router-dom";
 import Card from "../card/Card";
 
+// eslint-disable-next-line react/prop-types
 const Cards = ({ data, loading, title, link, slice, className}) => {
   return (
     <div>
