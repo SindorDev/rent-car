@@ -68,3 +68,30 @@
         transform: translateX(0px);
     }
 }
+.ant-steps-item-icon {
+    background-color: blue !important;
+    display: none !important;
+}
+.ant-steps-icon {
+    color: #fff !important;
+}
+.ant-steps-item-content {
+    background-color: #000064 !important;
+    padding: 10px !important;
+    border-radius: 30px;
+}
+.ant-steps-item-title {
+    color: #fff !important;
+    padding: 0 !important;
+}
+.ant-steps-item-container {
+    border: none !important;
+}
+.ant-steps .ant-steps-item-title::after {
+    display: none !important;
+}
+.ant-steps {
+    display: flex !important ;
+    justify-content: center !important;
+    padding: 0 !important;
+}

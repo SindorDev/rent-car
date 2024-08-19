@@ -54,12 +54,14 @@ const Create = () => {
   
 
   useEffect(() => {
+
     if(state?.id) {
       getDetailsCar(state?.id)
     }
   }, [state?.id])
 
   useEffect(() => {
+    
     if(carDataInfo?.payload && pathname === "/edit/") {
       setCarData(carDataInfo?.payload)
     }
@@ -68,6 +70,7 @@ const Create = () => {
   console.log(updateData);
   console.log(carData);
   const next = () => {
+
     setCurrent(current + 1);
   };
 
@@ -101,25 +104,24 @@ const Create = () => {
 
    <>
     <div className="container flex items-center justify-center pt-[50px]">
-    <div className="flex flex-col justify-between shadow-cm gap-10 rounded-xl max-w-[800px] bg-white p-10 lg:flex-row">
+    <div className="flex flex-col justify-between shadow-cm gap-10 rounded-xl w-full  max-w-[1000px] bg-white p-10 lg:flex-row">
       <div className="flex h-auto flex-col justify-between lg:flex-1">
-        <Steps current={current} items={items} className="mb-10" />
+        <Steps current={current} items={items} className="mb-10 " />
 
         <div className="flex h-auto flex-1 flex-col justify-between">
           <div>{steps[current].content(carData, setCarData)}</div>
 
           <div className="mt-10 flex justify-end space-x-3">
             {current > 0 && (
-              <Button size="large" onClick={() => prev()}>
+              <Button className="bg-gray-700 text-white" size="large" onClick={() => prev()}>
                 Previous
               </Button>
             )}
             {current < steps.length - 1 ? (
               <Button
                 size="large"
-                type="primary"
                 onClick={() => next()}
-                className="bg-blue-500"
+                className="bg-[#000064] text-white"
               >
                 Next
               </Button>
