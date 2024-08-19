@@ -4,9 +4,10 @@ const userInfoApi = api.injectEndpoints({
      endpoints: (build) => ({
           getUserInfo: build.query({
                query: () => ({
-                    url: "auth/getMe",
+                    url: "auth/profile",
                     method: "GET"
-               })
+               }),
+               providesTags: ["User"]
           })
      })
 })

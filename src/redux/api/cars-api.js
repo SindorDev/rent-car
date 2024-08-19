@@ -10,7 +10,8 @@ const carsApi = api.injectEndpoints({
                     model: params?.model,
                     ...params,
                 }
-            })
+            }),
+            providesTags: ["Cars"]
         }),
         getDetailsCar: build.mutation({
             query: (id) => ({
@@ -22,14 +23,16 @@ const carsApi = api.injectEndpoints({
                 url: "/cars/create",
                 method: "POST",
                 body
-            })
+            }),
+            invalidatesTags: ["Cars"]
         }),
         
         deleteCars: build.mutation({
             query: (id) => ({
                 url: `/cars/${id}`,
                 method: "DELETE",
-            })
+            }),
+            invalidatesTags: ["Cars"],
         }),
     })
 });

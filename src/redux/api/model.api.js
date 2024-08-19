@@ -5,7 +5,8 @@ const modelApi = api.injectEndpoints({
           getModel: build.query({
                query: () => ({
                     url: "/model"
-               })
+               }),
+               invalidatesTags: ["Cars"]
           })
      })
 })

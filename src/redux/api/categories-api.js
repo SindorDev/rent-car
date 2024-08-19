@@ -6,6 +6,7 @@ const categoriesApi = api.injectEndpoints({
             query: () => ({
                 url: "/categories",
             }),
+            providesTags: ["Cars"],
         }),
     }),
 });

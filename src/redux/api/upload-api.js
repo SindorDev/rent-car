@@ -7,14 +7,16 @@ const modelApi = api.injectEndpoints({
                     url: "/upload/multiple",
                     method: "POST",
                     body
-               })
+               }),
+               invalidatesTags: ["Cars"],               
           }),
           sendThumbnailFile: build.mutation({
                query: (body) => ({
                     url: "/upload/single",
                     method: "POST",
                     body
-               })
+               }),
+               invalidatesTags: ["Cars"]
           }),
           
      })
