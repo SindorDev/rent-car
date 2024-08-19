@@ -77,7 +77,7 @@ const Cars = () => {
     {
       key: "images",
       title: "Images",
-      dataIndex: "images",
+      dataIndex: "thumbnail",
       render: (thumbnail) => (
         <img src={thumbnail} width={50} alt="name" />
       ),

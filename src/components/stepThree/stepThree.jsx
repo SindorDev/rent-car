@@ -226,7 +226,7 @@ const VisualInformations = ({carData, setCarData}) => {
         <Form.Item
           className="flex-1"
           label="Discount Rent Car"
-          name="dicount"
+          name="discount"
           rules={[{ required: false }]}
         >
           <InputNumber

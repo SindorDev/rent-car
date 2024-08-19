@@ -41,7 +41,7 @@ const Create = () => {
     fuel: null,
     price: null,
     rent_price: null,
-    dicount: null,
+    discount: null,
     thumbnail: [],
     usage_per_km: null
   })
