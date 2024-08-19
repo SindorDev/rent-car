@@ -2,7 +2,7 @@
 import { Form, Select, Tag, Upload, InputNumber } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useForm } from "antd/es/form/Form";
-import { useSendUploadFileMutation, useSendThumbnailFileMutation } from "../../redux/api/upload-api";
+import { useSendUploadFileMutation, useSendThumbnailFileMutation, useRemoveImageMutation } from "../../redux/api/upload-api";
 import { useEffect } from "react";
 
 const options = [
@@ -70,10 +70,9 @@ const VisualInformations = ({carData, setCarData}) => {
   const [form] = useForm()
   const [sendUploadFile, {data}] = useSendUploadFileMutation()
   const [sendThumbnailFile, {data: thumbnailData}] = useSendThumbnailFileMutation()
+  const [removeImage, {data: removeImageData}] = useRemoveImageMutation()
 
-    // eslint-disable-next-line no-unused-vars
-
-
+  console.log(removeImageData);
     useEffect(() => {
       if (data?.payload) {
         setCarData(prevData => ({ ...prevData, images: data.payload }));
@@ -86,12 +85,20 @@ const VisualInformations = ({carData, setCarData}) => {
       }
     }, [thumbnailData]);
 
+    
+  useEffect(() => { 
+    form.setFieldsValue(carData); 
+  }, [carData]) 
+
+
 
   const handleFormChange = () => {
     const values = form.getFieldsValue()
     setCarData({...carData, ...values, images: carData.images, thumbnail: carData.thumbnail})
   }
-
+  const handleRemoveImage = (id) => {
+    removeImage(id.name)
+  }
   const handleUploadFiles = ({file, fileList}) => {
     if(file.status !== "uploading") {
       const formData = new FormData()
@@ -121,12 +128,29 @@ const VisualInformations = ({carData, setCarData}) => {
         name="images"
         rules={[{ required: true, message: "Please upload car images" }]}
       >
-        <Upload listType="picture-card" onChange={handleUploadFiles} multiple beforeUpload={() => false}>
-          <div>
-            <UploadOutlined />
-            <div className="mt-2">Upload</div>
-          </div>
-        </Upload>
+        <Upload
+              
+              fileList={
+                Array.isArray(data?.images)
+                  ? data?.images?.map((image) => ({
+                      uid: image,
+                      name: image,
+                      url: image,
+                    }))
+                  : []
+              }
+              className="w-full overflow-scroll"
+              listType="picture-card"
+              onRemove={(data) => handleRemoveImage(data)}
+              multiple
+              beforeUpload={() => false}
+              onChange={handleUploadFiles}
+            >
+              <div>
+                <UploadOutlined />
+                <div className="mt-2">Upload</div>
+              </div>
+            </Upload>
       </Form.Item>
 
       <Form.Item
@@ -134,12 +158,28 @@ const VisualInformations = ({carData, setCarData}) => {
         name="thumbnail"
         rules={[{ required: true, message: "Please upload a thumbnail image" }]}
       >
-        <Upload listType="picture-card" onChange={handleThumbnailFiles} beforeUpload={() => false}>
-          <div>
-            <UploadOutlined />
-            <div className="mt-2">Upload</div>
-          </div>
-        </Upload>
+        <Upload
+              onRemove={(data) => handleRemoveImage(data)}
+      fileList={
+        carData?.thumbnail
+          ? [
+              {
+                uid: carData?.thumbnail,
+                name: carData?.thumbnail,
+                url: carData?.thumbnail,
+              },
+            ]
+          : []
+      }
+      listType="picture-card"
+      beforeUpload={() => false}
+      onChange={handleThumbnailFiles}
+    >
+      <div>
+        <UploadOutlined />
+        <div className="mt-2">Upload</div>
+      </div>
+    </Upload>
       </Form.Item>
       </div>
       <div>

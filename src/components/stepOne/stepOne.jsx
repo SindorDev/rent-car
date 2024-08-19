@@ -1,6 +1,7 @@
 import { Form, Input, InputNumber, Select } from "antd";
 import { useGetCategoriesQuery } from "../../redux/api/categories-api";
 import { useForm } from "antd/es/form/Form";
+import { useEffect } from "react";
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -13,6 +14,9 @@ const BasicInformations = ({carData, setCarData}) => {
     const values = form.getFieldsValue()
     setCarData({...carData, ...values})
   }
+  useEffect(() => { 
+    form.setFieldsValue(carData); 
+  }, [carData]) 
 
   return (
     <div className="mt-5">
@@ -55,7 +59,7 @@ const BasicInformations = ({carData, setCarData}) => {
             </Select>
           </Form.Item>
           <Form.Item
-            className="flex-1"
+            className="flex-1 w-full"
             label="Year"
             name="year"
             rules={[
@@ -65,7 +69,7 @@ const BasicInformations = ({carData, setCarData}) => {
               },
             ]}
           >
-            <InputNumber min={"1900"} max={new Date().getFullYear() + 1}  placeholder="Enter manufacturing year" />
+            <InputNumber min={"1900"} className="w-full" max={new Date().getFullYear() + 1}  placeholder="Enter manufacturing year" />
           </Form.Item>
         </div>
 

@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { capitalPasswordValidation, symbolPasswordValidation, numberPasswordValidation } from "../../../validation/index"
 const Register = () => {
   const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [first_name, setFirstName] = useState("")
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
   const [signUp, {isLoading, isSuccess, data}] = useSignUpMutation();
@@ -14,13 +16,15 @@ const Register = () => {
   const onFinish = async (values) => {
     signUp(values)
     setEmail(values.email)
+    setPassword(values.password)
+    setFirstName(values.first_name)
   };
 
 
   useEffect(() => {
     if(isSuccess) {
       message.success(data.message)
-      navigate(`/auth/verify/${btoa(email)}`)
+      navigate(`/auth/verify/?email=${btoa(email)}&password=${btoa(password)}&first_name=${btoa(first_name)}`)
     }
   }, [data, isSuccess])
 

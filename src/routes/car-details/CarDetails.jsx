@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Container } from "../../utils";
 import reviews from "../../images/Reviews.svg";
 import Cards from "../../components/cards/Cards";
+import Footer from "../../components/footer/Footer"
 import { CarCardFillHeart } from "../../images/svgs";
 import { Button } from "antd";
 const CarDetails = () => {
@@ -28,6 +29,7 @@ const CarDetails = () => {
 
   console.log(payload?.payload);
   return (
+  <>
     <Container>
       <div>
 
@@ -161,6 +163,8 @@ const CarDetails = () => {
         </Button>
       </div>
     </Container>
+    <Footer/>
+  </>
   );
 };
 

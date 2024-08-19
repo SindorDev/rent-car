@@ -2,7 +2,6 @@
 import { lazy, useEffect } from "react"
 import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 import { SuspenseElement as Suspense } from "../utils/index"
-import Footer from "../components/footer/Footer"
 import { useSelector } from "react-redux"
 
 const Menu = lazy(() => import("./auth/auth"))
@@ -18,6 +17,8 @@ const Categories = lazy(() => import("./categories/Categories"))
 const CreateCar = lazy(() => import("../components/create-modal/CreateComponent"))
 const CarDetails = lazy(() => import("./car-details/CarDetails"))
 const Verify = lazy(() => import("./verify/Verify"))
+const Users = lazy(() => import("./dashboard/users/Users"))
+const Update = lazy(() => import("../components/create-modal/CreateComponent"))
 const routesController = () => {
      const {pathname} = useLocation();
      const {token} = useSelector(state => state.auth)
@@ -35,10 +36,12 @@ const routesController = () => {
                <Route path="" element={<Suspense> <Dashboard/> </Suspense>}>
                     <Route path="cars" element={<Suspense> <Cars/> </Suspense>}/>
                     <Route path="profile" element={<Suspense> <Profile/> </Suspense>}/>
+                    <Route path="users" element={<Suspense> <Users/> </Suspense>}/>
                </Route>
           </Route>
           <Route path="categories" element={<Suspense> <Categories/> </Suspense>}/>
           <Route path="/create-car" element={<Suspense><CreateCar/></Suspense>}/>
+          <Route path="/edit/" element={<Suspense><Update/></Suspense>}/>
           <Route path="/details/:id" element={<Suspense><CarDetails/></Suspense>}/>
           </Route>
 
@@ -48,7 +51,6 @@ const routesController = () => {
                <Route path="verify/:email" element={<Suspense><Verify/></Suspense>}/>
           </Route>
      </Routes>
-     <Footer/>
      </>
   )
 }

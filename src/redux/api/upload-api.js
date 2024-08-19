@@ -18,9 +18,15 @@ const modelApi = api.injectEndpoints({
                }),
                invalidatesTags: ["Cars"]
           }),
-          
+          removeImage: build.mutation({
+               query: (name) => ({
+                    url: `/upload/delete/${name}`,
+                    method: "DELETE"
+               }),
+               invalidatesTags: ["Cars"]
+          })
      })
 })
 
 
-export const { useSendUploadFileMutation, useSendThumbnailFileMutation } = modelApi
+export const { useSendUploadFileMutation, useSendThumbnailFileMutation, useRemoveImageMutation } = modelApi

@@ -1,3 +1,4 @@
+import { AiOutlineUser } from "react-icons/ai"; 
 /* eslint-disable react/prop-types */
 import { Button, Layout, Menu, Modal } from "antd";
 const { Sider } = Layout;
@@ -68,28 +69,34 @@ const Sidebar = ({ collapsed }) => {
 
             {
               key: "3",
+              icon: <AiOutlineUser size={28} className="text-[#90A3BF]" />,
+              label: <NavLink to={"users"}>Users</NavLink>,
+            },
+
+            {
+              key: "4",
               icon: <img src={insight} alt="insight" />,
               label: <NavLink to={"insight"}>Insight</NavLink>,
             },
 
             {
-              key: "4",
+              key: "5",
               icon: <img src={reim} alt="reim" />,
               label: <NavLink to={"reimburse"}>Reimburse</NavLink>,
             },
             {
-              key: "5",
+              key: "6",
               icon: <img src={inbox} alt="inbox" />,
               label: <NavLink to={"inbox"}>Inbox</NavLink>,
             },
 
             {
-              key: "6",
+              key: "8",
               icon: <img src={calendar} alt="calendar" />,
               label: <NavLink to={"calendar"}>Calendar</NavLink>,
             },
             {
-              key: "7",
+              key: "8",
               icon: <img src={settings} alt="settings" />,
               label: <NavLink to={"settings"}>Settings</NavLink>,
             },

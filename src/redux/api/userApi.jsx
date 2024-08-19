@@ -26,7 +26,8 @@ const userApi = api.injectEndpoints({
                     body
                }), 
                providesTags: ["User"],
-          }) 
+          }),
+          
      })
 })
 

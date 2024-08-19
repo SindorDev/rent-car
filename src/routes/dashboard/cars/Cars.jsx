@@ -1,18 +1,23 @@
 import { Button, message } from "antd";
 import { DashboardTitle } from "../../../utils/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TableComponent from "../../../components/table/Table";
 import { useEffect, useState } from "react";
 import { useGetCarsQuery, useDeleteCarsMutation } from "../../../redux/api/cars-api";
 
 const Cars = () => {
   const { data, isLoading } = useGetCarsQuery();
+  const navigate = useNavigate()
   const [current, setCurrent] = useState(1);
   const [deleteCar, { data: deleteCarData, isSuccess }] = useDeleteCarsMutation();
   
   const handleCarDelete = (id) => {
     deleteCar(id);
   };
+
+  const handleCarUpdate = (id) => {
+      navigate(`/edit/`, {state: {id}} )
+  }
 
   useEffect(() => {
     if (isSuccess) {
@@ -22,8 +27,8 @@ const Cars = () => {
 
 
   const columns = [
+
     {
-      count: 1,
       title: "No",
       key: "id",
       render: (text, _, index) => (current - 1) * 5 + index + 1,
@@ -71,6 +76,13 @@ const Cars = () => {
       title: "Action",
       render: (product) => (
         <div className="flex items-center gap-2">
+          <Button
+            className="bg-yellow-400 text-white"
+            type="attention"
+            onClick={() => handleCarUpdate(product._id)}
+          >
+            Update
+          </Button>
           <Button
             danger
             type="primary"

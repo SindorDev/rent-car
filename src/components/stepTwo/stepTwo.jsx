@@ -1,5 +1,6 @@
 import { Form, Select, InputNumber } from "antd";
 import { useForm } from "antd/es/form/Form";
+import { useEffect } from "react";
 
 const { Option } = Select;
 
@@ -11,6 +12,10 @@ const TechnicalInformations = ({carData, setCarData}) => {
     const values = form.getFieldsValue()
     setCarData({...carData, ...values})
   }
+
+  useEffect(() => { 
+    form.setFieldsValue(carData); 
+  }, [carData]) 
 
   return (
     <Form form={form} initialValues={carData} onValuesChange={handleFormChange} layout="vertical" className="space-y-6" size="large">

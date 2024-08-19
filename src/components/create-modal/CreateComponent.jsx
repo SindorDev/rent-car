@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
 // eslint-disable-next-line no-unused-vars
+import { useEffect, useState } from "react";
 import { Button, message, Steps } from "antd";
 import BasicInformations from "../../components/stepOne/stepOne";
 import VisualInformations from "../../components/stepTwo/stepTwo";
 import TechnicalInformations from "../../components/stepThree/stepThree";
+import Footer from "../footer/Footer";
 import { useSendCarFormMutation } from "../../redux/api/cars-api"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
+import { useGetDetailsCarMutation, useUpdateCarsMutation } from "../../redux/api/cars-api";
 
 const steps = [
   {
@@ -23,9 +26,12 @@ const steps = [
 ];
 
 const Create = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [sendCarForm, {data, isSuccess}] = useSendCarFormMutation();
   const navigate = useNavigate()
+  const {state, pathname} = useLocation()
+  const [getDetailsCar, {data: carDataInfo}] = useGetDetailsCarMutation();
+  const [updateCars, {data: updateData}] = useUpdateCarsMutation();
+  const [current, setCurrent] = useState(0);
+  const [sendCarForm, {data, isSuccess}] = useSendCarFormMutation();
   const [carData, setCarData] = useState({
 
     name:"",
@@ -45,7 +51,22 @@ const Create = () => {
     thumbnail: [],
     usage_per_km: null
   })
-  const [current, setCurrent] = useState(0);
+  
+
+  useEffect(() => {
+    if(state?.id) {
+      getDetailsCar(state?.id)
+    }
+  }, [state?.id])
+
+  useEffect(() => {
+    if(carDataInfo?.payload && pathname === "/edit/") {
+      setCarData(carDataInfo?.payload)
+    }
+  }, [carDataInfo])
+
+  console.log(updateData);
+  console.log(carData);
   const next = () => {
     setCurrent(current + 1);
   };
@@ -60,7 +81,12 @@ const Create = () => {
   }));
 
   const handleSendForm = () => {
+    if(carDataInfo?.payload && pathname === "/edit/") {
+      updateCars({body: carData, id: carDataInfo?.payload?._id})
+    }
+    else {
     sendCarForm(carData)
+    }
   }
 
   useEffect(() => {
@@ -73,6 +99,7 @@ const Create = () => {
   }, [isSuccess])
   return (
 
+   <>
     <div className="container flex items-center justify-center pt-[50px]">
     <div className="flex flex-col justify-between shadow-cm gap-10 rounded-xl max-w-[800px] bg-white p-10 lg:flex-row">
       <div className="flex h-auto flex-col justify-between lg:flex-1">
@@ -111,6 +138,8 @@ const Create = () => {
       </div>
     </div>
   </div>
+    <Footer/>
+   </>
   );
 };
 

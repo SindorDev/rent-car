@@ -1,4 +1,5 @@
 import CategorySidebar from "../../components/sidebar/CategorySidebar"
+import Footer from "../../components/footer/Footer"
 import Cards from "./../../components/cards/Cards"
 import { Container } from "../../utils"
 import { useGetCarsQuery } from "../../redux/api/cars-api";
@@ -9,6 +10,7 @@ const Categories = () => {
     const [searchParams] = useSearchParams();
     const {data, isLoading} = useGetCarsQuery({categories: searchParams.getAll("categories"), model: searchParams.getAll("models")});
   return (
+    <>
     <div className="my-14">
         <Container>
            <div className="flex gap-5 items-start">
@@ -17,6 +19,8 @@ const Categories = () => {
            </div>
         </Container>
     </div>
+    <Footer/>
+    </>
   )
 }
 

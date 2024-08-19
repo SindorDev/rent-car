@@ -34,7 +34,16 @@ const carsApi = api.injectEndpoints({
             }),
             invalidatesTags: ["Cars"],
         }),
+        
+        UpdateCars: build.mutation({
+            query: ( {body, id}) => ({
+                url: `/cars/${id}`,
+                method: "PUT",
+                body
+            }),
+            invalidatesTags: ["Cars"],
+        }),
     })
 });
 
-export const { useGetCarsQuery, useGetDetailsCarMutation, useSendCarFormMutation, useDeleteCarsMutation } = carsApi;
+export const { useGetCarsQuery, useGetDetailsCarMutation, useSendCarFormMutation, useDeleteCarsMutation, useUpdateCarsMutation } = carsApi;

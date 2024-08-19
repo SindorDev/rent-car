@@ -8,8 +8,22 @@ const userInfoApi = api.injectEndpoints({
                     method: "GET"
                }),
                providesTags: ["User"]
+          }),
+          getPeople: build.query({
+               query: () => ({
+                    url: "users",
+                    method: "GET"
+               }),
+               providesTags: ["User"]
+          }),
+          deleteUser: build.mutation({
+               query: (id) => ({
+                    url: `users/${id}`,
+                    method: "DELETE"
+               }),
+               invalidatesTags: ["User"]
           })
      })
 })
 
-export const { useGetUserInfoQuery } = userInfoApi 
+export const { useGetUserInfoQuery, useGetPeopleQuery, useDeleteUserMutation } = userInfoApi 

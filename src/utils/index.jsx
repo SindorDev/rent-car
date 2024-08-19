@@ -20,7 +20,7 @@ const SuspenseElement = ({children}) => {
 export const DashboardTitle = ({children}) => {
 
     return (
-        <Title level={1}>{children}</Title>
+        <Title level={3}>{children}</Title>
     )
 }
 

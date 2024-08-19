@@ -1,6 +1,7 @@
 import Hero from "../../components/hero/Hero"
 import Cards from "../../components/cards/Cards"
 import Categories from "../../components/cateogires/Categories"
+import Footer from "../../components/footer/Footer"
 import { useGetCarsQuery } from "../../redux/api/cars-api"
 import { useState } from "react"
 import { Button } from "antd"
@@ -21,6 +22,7 @@ const Home = () => {
       <Button type="primary" className="px-10 py-6" onClick={() => setCarShow(carShow + 4)} >Show More</Button>
       </div>
      </div>
+     <Footer/>
     </>
   )
 }

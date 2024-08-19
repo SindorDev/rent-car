@@ -2,6 +2,7 @@ import { Layout } from "antd";
 import { useState } from "react";
 import { Outlet } from "react-router-dom"
 import Sidebar from "../../components/sidebar/Sidebar";
+import Footer from "../../components/footer/Footer";
 import { Content } from "antd/es/layout/layout";
 const Dashboard = () => {
   // eslint-disable-next-line no-unused-vars
@@ -22,6 +23,7 @@ const Dashboard = () => {
         <Outlet/>
        </Content>     
         </Layout>
+        <Footer/>
      </>
   )
 }
