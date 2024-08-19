@@ -1,21 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState } from 'react';
 import { Table } from 'antd';
 
-const TableComponent = ({tableParams, columns, url }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [data, setData] = useState(url);
-  const [loading] = useState(false);
+const TableComponent = ({columns, pagination, isLoading, url }) => {
 
-  console.log(data);
   return (
     <Table
     columns={columns}
     rowKey={(product) => product._id}
-      dataSource={data?.map((product) => ({key: product._id, ...product}))}
-      pagination={tableParams.pagination}
-      loading={loading}
+      dataSource={url?.map((product) => ({key: product._id, ...product}))}
+      pagination={pagination}
+      loading={isLoading}
       url={url}
     />
   );

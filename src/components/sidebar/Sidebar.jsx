@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import { Button, Layout, Menu, Modal } from "antd";
 const { Sider } = Layout;
 import home from "../../images/home.svg";
@@ -55,7 +54,6 @@ const Sidebar = ({ collapsed }) => {
         <Menu
           className="flex-1 flex flex-col gap-5"
           mode="inline"
-          defaultSelectedKeys={["1"]}
           items={[
             {
               key: "1",

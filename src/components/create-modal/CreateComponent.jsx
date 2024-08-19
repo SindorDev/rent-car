@@ -61,13 +61,14 @@ const Create = () => {
 
   const handleSendForm = () => {
     sendCarForm(carData)
-    message.success("Processing complete!")
   }
 
   useEffect(() => {
     if(isSuccess) {
-      message.success(data.message)
-      navigate("/")
+      message.success(data.message),
+      setInterval(() => {
+      navigate("/dashboard/cars")
+      }, 1200);
     }
   }, [isSuccess])
   return (
