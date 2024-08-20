@@ -131,8 +131,8 @@ const VisualInformations = ({carData, setCarData}) => {
         <Upload
               
               fileList={
-                Array.isArray(data?.images)
-                  ? data?.images?.map((image) => ({
+                Array.isArray(carData?.images)
+                  ? carData?.images?.map((image) => ({
                       uid: image,
                       name: image,
                       url: image,

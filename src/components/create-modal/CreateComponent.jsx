@@ -33,6 +33,7 @@ const Create = () => {
   const [current, setCurrent] = useState(0);
   const [sendCarForm, {data, isSuccess}] = useSendCarFormMutation();
   const [carData, setCarData] = useState({
+    
 
     name:"",
     images: [],

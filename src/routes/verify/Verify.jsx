@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Button, Input, message } from "antd";
@@ -13,9 +14,9 @@ const Verify = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [counter, setCounter] = useState(0);
   const [user, setUser] = useState({
-    email: searchParams.get("email"),
-    password: searchParams.get("password"),
-    first_name: searchParams.get("first_name"),
+    email: atob(searchParams.get("email")),
+    password: atob(searchParams.get("password").split("==")[0]),
+    first_name: atob(searchParams.get("first_name")),
   });
   const onChange = (text) => {
     verifyOtp({ email: user?.email, otp: text });

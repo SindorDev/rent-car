@@ -48,7 +48,7 @@ const routesController = () => {
           <Route path="auth" element={token ? <Navigate to={"/dashboard"}/> : <Suspense><Menu/></Suspense>}>
                <Route path="" element={<Suspense><Login/></Suspense>}/>
                <Route path="register" element={<Suspense><Register/></Suspense>}/>
-               <Route path="verify/:email" element={<Suspense><Verify/></Suspense>}/>
+               <Route path="verify/" element={<Suspense><Verify/></Suspense>}/>
           </Route>
      </Routes>
      </>
