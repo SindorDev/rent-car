@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { Button, Input, message } from "antd";
 import { useSignUpMutation, useVerifyOtpMutation } from "../../redux/api/userApi";
 import { useEffect, useState } from "react";

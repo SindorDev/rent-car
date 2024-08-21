@@ -3,21 +3,23 @@ import { DashboardTitle } from "../../../utils/index";
 import { Link, useNavigate } from "react-router-dom";
 import TableComponent from "../../../components/table/Table";
 import { useEffect, useState } from "react";
-import { useGetCarsQuery, useDeleteCarsMutation } from "../../../redux/api/cars-api";
+import {
+  useGetCarsQuery,
+  useDeleteCarsMutation,
+} from "../../../redux/api/cars-api";
 
 const Cars = () => {
   const { data, isLoading } = useGetCarsQuery();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [current, setCurrent] = useState(1);
-  const [deleteCar, { data: deleteCarData, isSuccess }] = useDeleteCarsMutation();
-  
+  const [deleteCar, { data: deleteCarData, isSuccess }] =
+    useDeleteCarsMutation();
   const handleCarDelete = (id) => {
     deleteCar(id);
   };
-
   const handleCarUpdate = (id) => {
-      navigate(`/edit/`, {state: {id}} )
-  }
+    navigate(`/edit/`, { state: { id } });
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -25,9 +27,7 @@ const Cars = () => {
     }
   }, [isSuccess, deleteCarData]);
 
-
   const columns = [
-
     {
       title: "No",
       key: "id",
@@ -64,7 +64,9 @@ const Cars = () => {
       key: "thumbnail",
       title: "Images",
       dataIndex: "thumbnail",
-      render: (thumbnail) => <img src={thumbnail} width={50} alt="Car thumbnail" />,
+      render: (thumbnail) => (
+        <img src={thumbnail} width={50} alt="Car thumbnail" />
+      ),
     },
     {
       key: "transmission",
@@ -108,7 +110,7 @@ const Cars = () => {
         columns={columns}
         isLoading={isLoading}
         url={data?.payload}
-        pagination={{ pageSize: 5, onChange: (page) => setCurrent(page), }}
+        pagination={{ pageSize: 5, onChange: (page) => setCurrent(page) }}
       />
     </div>
   );
