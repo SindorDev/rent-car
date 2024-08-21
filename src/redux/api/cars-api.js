@@ -36,7 +36,7 @@ const carsApi = api.injectEndpoints({
         }),
         
         UpdateCars: build.mutation({
-            query: ( {body, id}) => ({
+            query: ({ body, id }) => ({
                 url: `/cars/${id}`,
                 method: "PUT",
                 body
