@@ -3,18 +3,29 @@ import avatarLogo from "../../../images/avatarImage.webp"
 import { DashboardTitle } from "../../../utils/index"
 import { useEffect, useState } from "react";
 import { Button, message } from "antd";
-import { useGetPeopleQuery, useDeleteUserMutation } from "../../../redux/api/userInfo";
+import { useGetPeopleQuery, useDeleteUserMutation, usePromoteUserMutation } from "../../../redux/api/userInfo";
 import { Link } from "react-router-dom";
 
 const Users = () => {
   const {data, isLoading} = useGetPeopleQuery();
   const [deleteUser, {data: deleteUserData, isSuccess}] = useDeleteUserMutation();
+  const [promote, {data: promoteData, isSuccess: promoteSuccess}] = usePromoteUserMutation()
   const [current, setCurrent] = useState(1);
 
 
   const handleUserDelete = (id) => {
     deleteUser(id);
   };
+
+  const handlePromoution = (id) => {
+    promote(id)
+  }
+
+  useEffect(() => {
+    if(promoteSuccess) {
+      message.success(promoteData.message);
+    }
+  }, [promoteSuccess, promoteData])
 
   useEffect(() => {
     if(isSuccess) {
@@ -76,6 +87,12 @@ const Users = () => {
       title: "Action",
       render: (product) => (
         <div className="flex items-center gap-2">
+          <Button
+            type="primary"
+            onClick={() => handlePromoution(product._id)}
+          >
+            Promote
+          </Button>
           <Button
             danger
             type="primary"
