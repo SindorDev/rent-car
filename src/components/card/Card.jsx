@@ -1,3 +1,4 @@
+import { AiOutlineHeart } from "react-icons/ai"; 
 /* eslint-disable react/prop-types */
 import {
   CarCardFillHeart,
@@ -6,19 +7,25 @@ import {
   CarCardPeople,
 } from "../../images/svgs";
 import { Link } from "react-router-dom";
-
+// import {  useSelector } from "react-redux";
 const CarCard = ({car}) => {
+  // const {user} = useSelector(state => state.auth)
 
+  const handleLikeCars = (car) => {
+    console.log(car);
+    // car.user_id.includes(user._id) ? console.log("already liked") : console.log("liked")
+  }
 
   return (
     <div className="rounded-[10px] bg-white p-6 shadow-lg transition hover:shadow-2xl">
-      <div className="flex w-full items-start justify-between">
+      <div className="flex w-full mb-3 items-start justify-between">
         <div className="flex flex-col gap-1">
           <span className="text-xl font-bold">{car.name}</span>
           <span className="text-sm font-bold text-[#90a3bf]">{car.model}</span>
         </div>
-        <button>
-          <CarCardFillHeart />
+        <button onClick={() =>  handleLikeCars(car)} className="w-[40px] h-[40px] flex items-center justify-center rounded-full shadow-cm ">
+          {/* <CarCardFillHeart /> */}
+          <AiOutlineHeart size={24} />
         </button>
       </div>
 

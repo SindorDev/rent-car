@@ -19,7 +19,9 @@ const Home = () => {
       <Cards data={data} loading={loading} slice={carShow} title="Recommended cars" className="grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4" link="/categories"/>
      
       <div className=" flex w-full justify-center mt-[80px]">
-      <Button type="primary" className="px-10 py-6" onClick={() => setCarShow(carShow + 4)} >Show More</Button>
+        {
+          data?.payload.length > carShow && <Button type="primary" size="large" onClick={() => setCarShow(carShow + 4)}>Show more</Button>
+        }
       </div>
      </div>
      <Footer/>

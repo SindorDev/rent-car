@@ -26,8 +26,6 @@ const CarDetails = () => {
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
-
-  console.log(payload?.payload);
   return (
   <>
     <Container>

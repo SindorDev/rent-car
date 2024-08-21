@@ -1,15 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { Card, Typography, Row, Col, Divider, Image, Upload, Button  } from 'antd';
 import avatar from "../../../images/avatarImage.webp"
-import { useGetUserInfoQuery } from "../../../redux/api/userInfo";
+import { useGetUserInfoQuery, useUpdateUserMutation } from "../../../redux/api/userInfo";
 import { useRemoveImageMutation, useSendThumbnailFileMutation } from '../../../redux/api/upload-api';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 const { Title, Paragraph, Text } = Typography;
 
 const ProfilePage = () => {
   const { data: payload } = useGetUserInfoQuery();
   const [sendThumbnailFile, { data }] = useSendThumbnailFileMutation();
+  const [updateUser, {data:updateData}] = useUpdateUserMutation()
   const [removeImage, {data: removeImageData}] = useRemoveImageMutation()
-  const [profileAvatar, setProfileAvatar] = useState(null);
   const handleUploadFiles = ({file}) => {
     if(file.status !== "uploading") {
      const formData = new FormData()
@@ -19,27 +20,30 @@ const ProfilePage = () => {
 }
 useEffect(() => {
   if(data?.payload) {
-    setProfileAvatar(data?.payload)
+    updateUser({ body: data?.payload, id: payload?.payload?._id})
   }
 }, [data])
+
   return (
     <div style={{ padding: '20px' }}>
       <Card
         style={{ maxWidth: 1100,  margin: '0 auto', borderRadius: '10px' }}
       >
-        
-        <Upload onChange={handleUploadFiles} onRemove={({file}) => removeImage( { name: file?.name})} multiple beforeUpload={() => false}>
-            <Button> Upload Image  </Button>
-        </Upload>
-        <div className='flex items-center object-contain object-center justify-center'>
+        <div className='flex items-center flex-col gap-5 justify-center'>
          <Image
             width={200}
             height={200}
+            className='object-contain'
             src="error"
-            fallback={profileAvatar ? profileAvatar : avatar}
+            fallback={payload?.payload?.avatar ? payload?.payload?.avatar : avatar}
             style={{marginBottom: "50px", borderRadius: "50%"}}
 />
+
+<Upload onChange={handleUploadFiles} onRemove={({file}) => removeImage( { name: file?.name})} multiple beforeUpload={() => false}>
+            <Button> Upload Image  </Button>
+        </Upload>
         </div>
+
         <Title level={2} style={{ textAlign: 'center' }}>{payload?.payload?.first_name}  {payload?.payload?.last_name}</Title>
         <Paragraph style={{ textAlign: 'center' }}>
           Full Stack Developer | Tech Enthusiast | Frontend Developer

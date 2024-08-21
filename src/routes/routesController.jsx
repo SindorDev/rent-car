@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { lazy, useEffect } from "react"
 import { Navigate, Route, Routes, useLocation } from "react-router-dom"
@@ -19,13 +20,15 @@ const CarDetails = lazy(() => import("./car-details/CarDetails"))
 const Verify = lazy(() => import("./verify/Verify"))
 const Users = lazy(() => import("./dashboard/users/Users"))
 const Update = lazy(() => import("../components/create-modal/CreateComponent"))
+const Empty = lazy(() => import("./found/notFound"))
+
 const routesController = () => {
      const {pathname} = useLocation();
      const {token} = useSelector(state => state.auth)
+     const {user: {role}} = useSelector(state => state.auth)
      useEffect(() => {
           window.scrollTo(0, 0)
      }, [pathname])
-
   return (
      <>
      
@@ -34,9 +37,9 @@ const routesController = () => {
           <Route path="" element={<Suspense><Home/></Suspense>}/>
           <Route path="dashboard" element={<Suspense> <Private /> </Suspense>}>
                <Route path="" element={<Suspense> <Dashboard/> </Suspense>}>
-                    <Route path="cars" element={<Suspense> <Cars/> </Suspense>}/>
-                    <Route path="profile" element={<Suspense> <Profile/> </Suspense>}/>
-                    <Route path="users" element={<Suspense> <Users/> </Suspense>}/>
+                    <Route path="cars" element={role === "admin" ? <Suspense> <Cars/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
+                    <Route path="profile" element={ <Suspense> <Profile/> </Suspense> }/>
+                    <Route path="users" element={ role === "admin" ? <Suspense> <Users/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
                </Route>
           </Route>
           <Route path="categories" element={<Suspense> <Categories/> </Suspense>}/>
@@ -50,6 +53,7 @@ const routesController = () => {
                <Route path="register" element={<Suspense><Register/></Suspense>}/>
                <Route path="verify/" element={<Suspense><Verify/></Suspense>}/>
           </Route>
+          <Route path="*" element={<Suspense> <Empty/> </Suspense>}/>
      </Routes>
      </>
   )

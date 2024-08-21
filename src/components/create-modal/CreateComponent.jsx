@@ -29,6 +29,7 @@ const Create = () => {
   const navigate = useNavigate()
   const {state, pathname} = useLocation()
   const [getDetailsCar, {data: carDataInfo}] = useGetDetailsCarMutation();
+  // eslint-disable-next-line no-unused-vars
   const [updateCars, {data: updateData}] = useUpdateCarsMutation();
   const [current, setCurrent] = useState(0);
   const [sendCarForm, {data, isSuccess}] = useSendCarFormMutation();
@@ -42,14 +43,14 @@ const Create = () => {
     model: "",
     color: "", 
     transmission: "",
+    status: "active",
     seats: null,
     year: null,
-    status: "active",
     fuel: null,
     price: null,
     rent_price: null,
     discount: null,
-    thumbnail: [],
+    thumbnail: null,
     usage_per_km: null
   })
   
@@ -68,8 +69,6 @@ const Create = () => {
     }
   }, [carDataInfo])
 
-  console.log(updateData);
-  console.log(carData);
   const next = () => {
 
     setCurrent(current + 1);

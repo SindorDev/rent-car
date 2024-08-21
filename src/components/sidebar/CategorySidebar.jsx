@@ -16,24 +16,21 @@ const CategorySidebar = ({model}) => {
   };
   
   const onChangeModelType = (value) => {
-    console.log(value);
     setSearchParams({models: value})
   };
 
   const onChangeCarPerson = (value) => {
-    console.log("Persons: ", value);
+    console.log(value);
   };
 
   const onChangeSliderPrice = (value) => {
     setMinPrice(value[0]);
     setMaxPrice(value[1]);
-    // console.log("onChange: ", minPrice, maxPrice);
   };
 
   const onChangeCompleteSliderPrice = (value) => {
     setMinPrice(value[0]);
     setMaxPrice(value[1]);
-    // console.log("onChangeComplete: ", minPrice, maxPrice);
   };
 
   const carPersonOptions = [
@@ -54,8 +51,6 @@ const CategorySidebar = ({model}) => {
       value: "8 or More",
     },
   ];
-
-
   return (
     <div className="flex w-[320px] shrink-0 flex-col gap-14 rounded-[10px] bg-white p-5 shadow-lg">
       <div className="flex flex-col gap-7">

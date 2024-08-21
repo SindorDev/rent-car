@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Form, Select, Tag, Upload, InputNumber } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
@@ -70,9 +71,9 @@ const VisualInformations = ({carData, setCarData}) => {
   const [form] = useForm()
   const [sendUploadFile, {data}] = useSendUploadFileMutation()
   const [sendThumbnailFile, {data: thumbnailData}] = useSendThumbnailFileMutation()
+  // eslint-disable-next-line no-unused-vars
   const [removeImage, {data: removeImageData}] = useRemoveImageMutation()
 
-  console.log(removeImageData);
     useEffect(() => {
       if (data?.payload) {
         setCarData(prevData => ({ ...prevData, images: data.payload }));
@@ -169,7 +170,7 @@ const VisualInformations = ({carData, setCarData}) => {
                 url: carData?.thumbnail,
               },
             ]
-          : []
+          : null
       }
       listType="picture-card"
       beforeUpload={() => false}
