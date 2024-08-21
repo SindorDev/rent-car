@@ -8,7 +8,22 @@ const categoriesApi = api.injectEndpoints({
             }),
             providesTags: ["Cars"],
         }),
+        createCategories: build.mutation({
+            query: (body) => ({
+                url: "/categories/create",
+                method: "POST",
+                body
+            }),
+            invalidatesTags: ["Cars"],
+        }),
+        deleteCategories: build.mutation({
+            query: (id) => ({
+                url: `/categories/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Cars"],
+        })
     }),
 });
 
-export const { useGetCategoriesQuery } = categoriesApi
+export const { useGetCategoriesQuery, useCreateCategoriesMutation, useDeleteCategoriesMutation } = categoriesApi

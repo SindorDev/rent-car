@@ -1,3 +1,4 @@
+import { BiCategory } from "react-icons/bi"; 
 import { AiOutlineUser } from "react-icons/ai"; 
 /* eslint-disable react/prop-types */
 import { Button, Layout, Menu, Modal } from "antd";
@@ -81,28 +82,22 @@ const Sidebar = ({ collapsed }) => {
               icon: <img src={insight} alt="insight" />,
               label: <NavLink to={"insight"}>Insight</NavLink>,
             },
-
+            
             {
               key: "5",
+              icon: <BiCategory size={28} />,
+              label: <NavLink to={"category"}>Category</NavLink>,
+            },
+
+            {
+              key: "6",
               icon: <img src={reim} alt="reim" />,
               label: <NavLink to={"reimburse"}>Reimburse</NavLink>,
             },
             {
-              key: "6",
+              key: "7",
               icon: <img src={inbox} alt="inbox" />,
               label: <NavLink to={"inbox"}>Inbox</NavLink>,
-            },
-
-            {
-              key: "8",
-              icon: <img src={calendar} alt="calendar" />,
-              label: <NavLink to={"calendar"}>Calendar</NavLink>,
-            },
-
-            {
-              key: "8",
-              icon: <img src={help} alt="help" />,
-              label: <NavLink to={"help center"}>Help & Center</NavLink>,
             },
             ]
             :
@@ -127,17 +122,6 @@ const Sidebar = ({ collapsed }) => {
                 key: "4",
                 icon: <img src={inbox} alt="inbox" />,
                 label: <NavLink to={"inbox"}>Inbox</NavLink>,
-              },
-  
-              {
-                key: "5",
-                icon: <img src={calendar} alt="calendar" />,
-                label: <NavLink to={"calendar"}>Calendar</NavLink>,
-              },
-              {
-                key: "7",
-                icon: <img src={help} alt="help" />,
-                label: <NavLink to={"help center"}>Help & Center</NavLink>,
               },
               ]
         }

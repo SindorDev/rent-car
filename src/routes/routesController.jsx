@@ -21,7 +21,7 @@ const Verify = lazy(() => import("./verify/Verify"))
 const Users = lazy(() => import("./dashboard/users/Users"))
 const Update = lazy(() => import("../components/create-modal/CreateComponent"))
 const Empty = lazy(() => import("./found/notFound"))
-
+const Category = lazy(() => import("./dashboard/category/Category"))
 const routesController = () => {
      const {pathname} = useLocation();
      const {token} = useSelector(state => state.auth)
@@ -38,8 +38,9 @@ const routesController = () => {
           <Route path="dashboard" element={<Suspense> <Private /> </Suspense>}>
                <Route path="" element={<Suspense> <Dashboard/> </Suspense>}>
                     <Route path="cars" element={role === "admin" ? <Suspense> <Cars/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
-                    <Route path="profile" element={ <Suspense> <Profile/> </Suspense> }/>
+                    <Route path="category" element={role === "admin" ? <Suspense> <Category/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
                     <Route path="users" element={ role === "admin" ? <Suspense> <Users/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
+                    <Route path="profile" element={ <Suspense> <Profile/> </Suspense> }/>
                </Route>
           </Route>
           <Route path="categories" element={<Suspense> <Categories/> </Suspense>}/>
