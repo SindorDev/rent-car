@@ -1,17 +1,38 @@
 import { MdSpaceDashboard } from "react-icons/md"; 
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Layout } from "antd";
+import { AutoComplete, Form, Layout } from "antd";
 import logo from "../../images/Logo.png"
-import search from "../../images/search-normal.png"
+import searchBar from "../../images/search-normal.png"
 import filter from "../../images/filter.png"
 import heart from "../../images/heart.png"
 import bell from "../../images/notification.png"
 import profileAvatar from "../../images/Profil.png"
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import  useSearchParamsHook  from "../../hooks/useQueryParamas";
+import { useSearchCarsQuery } from "../../redux/api/cars-api";
 const { Header } = Layout;
 const HeaderComponent = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [search, setSearch] = useState("");
+  const [collapsed] = useState(false);
+  const {getParam, } = useSearchParamsHook();
+  const navigate = useNavigate()
+  const {data: searchData} = useSearchCarsQuery({q:search})
+
+  
+  const handleSearchSubmit = (value) => {
+    navigate(`/search?q=${value.search}`);
+  };
+
+  
+  const loadData = async (searchText) => {
+    try {
+      setSearch(searchText);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <div className="px-[20px]">
@@ -35,9 +56,38 @@ const HeaderComponent = () => {
 
             <div className="flex items-center w-full max-w-[500px] h-[45px] gap-[20px] border-[1px] border-[#C3D4E966]  py-[10px] px-[20px] rounded-[70px]">
               <label htmlFor="search">
-                <img src={search} alt="Search" />
+                <img src={searchBar} alt="Search" />
               </label>
-              <input type="text" id="search" className="w-full h-full outline-none border-none bg-transparent" placeholder="Search something here" />
+              <Form  initialValues={{search: getParam("q")}} onFinish={handleSearchSubmit}>
+                <Form.Item 
+                  name="search"  
+                  rules={[{ required: false }]}
+                >
+                <AutoComplete                
+                  onKeyDown={ (e) => {
+                    if (e.key === 'Enter') {
+                      navigate(`/search?q=${search}`);   
+                    }
+                  }}
+                  options={searchData?.payload?.map((item) => ({
+                    label: (
+                      <Link
+                        className="block bg-transparent border-none"
+                        key={item._id}
+                        to={`/details/${item._id}`}
+                      >
+                        {item.name}
+                      </Link>
+                    ),
+                  }))}
+                  className="search_input"
+                  onSearch={(text) =>
+                    text ? loadData(text) : loadData({ payload: [] })
+                  }
+                  placeholder="Search..."
+                />
+                </Form.Item>
+              </Form>
               <img src={filter} alt="Filter" />
             </div>
           </div>

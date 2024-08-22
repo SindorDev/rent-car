@@ -25,7 +25,7 @@ const Category = lazy(() => import("./dashboard/category/Category"))
 const routesController = () => {
      const {pathname} = useLocation();
      const {token} = useSelector(state => state.auth)
-     const {user: {role}} = useSelector(state => state.auth)
+     const {user} = useSelector(state => state.auth)
      useEffect(() => {
           window.scrollTo(0, 0)
      }, [pathname])
@@ -37,9 +37,9 @@ const routesController = () => {
           <Route path="" element={<Suspense><Home/></Suspense>}/>
           <Route path="dashboard" element={<Suspense> <Private /> </Suspense>}>
                <Route path="" element={<Suspense> <Dashboard/> </Suspense>}>
-                    <Route path="cars" element={role === "admin" ? <Suspense> <Cars/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
-                    <Route path="category" element={role === "admin" ? <Suspense> <Category/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
-                    <Route path="users" element={ role === "admin" ? <Suspense> <Users/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
+                    <Route path="cars" element={user?.role === "admin" ? <Suspense> <Cars/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
+                    <Route path="category" element={user?.role === "admin" ? <Suspense> <Category/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
+                    <Route path="users" element={ user?.role === "admin" ? <Suspense> <Users/> </Suspense> : <Navigate to={"/dashboard"}/>}/>
                     <Route path="profile" element={ <Suspense> <Profile/> </Suspense> }/>
                </Route>
           </Route>
