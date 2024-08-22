@@ -23,6 +23,7 @@ const Update = lazy(() => import("../components/create-modal/CreateComponent"))
 const Empty = lazy(() => import("./found/notFound"))
 const Category = lazy(() => import("./dashboard/category/Category"))
 const Reimburse = lazy(() => import("./dashboard/reimburse/Reimburse"))
+const Search = lazy(() => import("./search/Search"))
 const routesController = () => {
      const {pathname} = useLocation();
      const {token} = useSelector(state => state.auth)
@@ -49,6 +50,7 @@ const routesController = () => {
           <Route path="/create-car" element={<Suspense><CreateCar/></Suspense>}/>
           <Route path="/edit/" element={<Suspense><Update/></Suspense>}/>
           <Route path="/details/:id" element={<Suspense><CarDetails/></Suspense>}/>
+          <Route path="/search" element={<Suspense><Search/></Suspense>}/>
           </Route>
 
           <Route path="auth" element={token ? <Navigate to={"/dashboard"}/> : <Suspense><Menu/></Suspense>}>

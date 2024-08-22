@@ -20,6 +20,18 @@
     animation: k 0.5s 0.45s forwards;
 }
 
+.ant-form-item {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.ant-form {
+    width: 100% !important;
+}
+.ant-form input {
+    border: none !important;
+}
+
 
 .slick-active img {
     animation: l 0.5s 0.45s forwards;

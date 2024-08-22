@@ -4,9 +4,6 @@ import { Table } from 'antd';
 
 const TableComponent = ({columns, pagination, isLoading, url }) => {
 
-
-  console.log(url);
-
   return (
     <Table
     columns={columns}
