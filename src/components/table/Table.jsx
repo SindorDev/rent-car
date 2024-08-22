@@ -4,6 +4,9 @@ import { Table } from 'antd';
 
 const TableComponent = ({columns, pagination, isLoading, url }) => {
 
+
+  console.log(url);
+
   return (
     <Table
     columns={columns}
@@ -11,6 +14,7 @@ const TableComponent = ({columns, pagination, isLoading, url }) => {
       dataSource={url?.map((product) => ({key: product._id, ...product}))}
       pagination={pagination}
       loading={isLoading}
+
       url={url}
     />
   );

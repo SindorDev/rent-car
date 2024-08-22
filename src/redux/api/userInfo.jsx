@@ -27,9 +27,7 @@ const userInfoApi = api.injectEndpoints({
                query: ({body, id}) => ({
                     url: `users/${id}`,
                     method: "PUT",
-                    body: {
-                         avatar: body
-                    }
+                    body
           }),
                invalidatesTags: ["User"]
           }),

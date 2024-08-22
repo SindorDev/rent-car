@@ -17,6 +17,7 @@ const Cars = () => {
   const handleCarDelete = (id) => {
     deleteCar(id);
   };
+
   const handleCarUpdate = (id) => {
     navigate(`/edit/`, { state: { id } });
   };

@@ -55,6 +55,7 @@ const CategoryModal = ({ open, setOpen }) => {
   return (
     <div>
       <Modal title="Title" open={open} onCancel={handleCancel} footer={false}>
+        
           <Form form={form} onValuesChange={handleFormChange} onFinish={onFinish} layout="vertical" autoComplete="off" size="large" >
           <Form.Item
       label="name"

@@ -5,11 +5,8 @@ import { Button, Layout, Menu, Modal } from "antd";
 const { Sider } = Layout;
 import home from "../../images/home.svg";
 import car from "../../images/car.svg";
-import insight from "../../images/chart.svg";
 import reim from "../../images/empty-wallet-change.svg";
 import inbox from "../../images/message.svg";
-import calendar from "../../images/calendar.svg"
-import help from "../../images/info-circle.svg";
 import logOut from "../../images/logout.svg";
 import  { signOut }  from "../../redux/slices/authSlice";
 import { NavLink } from "react-router-dom";
@@ -79,23 +76,17 @@ const Sidebar = ({ collapsed }) => {
 
             {
               key: "4",
-              icon: <img src={insight} alt="insight" />,
-              label: <NavLink to={"insight"}>Insight</NavLink>,
+              icon: <BiCategory size={28} />,
+              label:<NavLink to={"category"}>Category</NavLink> 
+              ,
             },
-            
             {
               key: "5",
-              icon: <BiCategory size={28} />,
-              label: <NavLink to={"category"}>Category</NavLink>,
+              icon: <img src={reim} alt="reim" />,
+              label: <NavLink to={"reimburse"}>Reimburses</NavLink>,
             },
-
             {
               key: "6",
-              icon: <img src={reim} alt="reim" />,
-              label: <NavLink to={"reimburse"}>Reimburse</NavLink>,
-            },
-            {
-              key: "7",
               icon: <img src={inbox} alt="inbox" />,
               label: <NavLink to={"inbox"}>Inbox</NavLink>,
             },
@@ -109,17 +100,11 @@ const Sidebar = ({ collapsed }) => {
               },
               {
                 key: "2",
-                icon: <img src={insight} alt="insight" />,
-                label: <NavLink to={"insight"}>Insight</NavLink>,
-              },
-  
-              {
-                key: "3",
                 icon: <img src={reim} alt="reim" />,
                 label: <NavLink to={"reimburse"}>Reimburse</NavLink>,
               },
               {
-                key: "4",
+                key: "3",
                 icon: <img src={inbox} alt="inbox" />,
                 label: <NavLink to={"inbox"}>Inbox</NavLink>,
               },
