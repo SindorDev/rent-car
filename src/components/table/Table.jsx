@@ -16,4 +16,4 @@ const TableComponent = ({columns, pagination, isLoading, url }) => {
     />
   );
 };
-export default TableComponent;
+export default TableComponent; 

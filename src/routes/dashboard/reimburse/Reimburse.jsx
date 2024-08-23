@@ -19,7 +19,7 @@ const Reimburse = () => {
     {
       key: "user-id",
       title: "User ID",
-      dataIndex: "_id",
+      dataIndex: ["user_id", "first_name"],
     },
     {
       key: "name",
