@@ -6,7 +6,6 @@ const { Sider } = Layout;
 import home from "../../images/home.svg";
 import car from "../../images/car.svg";
 import reim from "../../images/empty-wallet-change.svg";
-import inbox from "../../images/message.svg";
 import logOut from "../../images/logout.svg";
 import  { signOut }  from "../../redux/slices/authSlice";
 import { NavLink } from "react-router-dom";
@@ -56,7 +55,6 @@ const Sidebar = ({ collapsed }) => {
           items={
             role === "admin" ?  
             [
-
             {
               key: "1",
               icon: <img src={home} alt="home" />,
@@ -67,16 +65,15 @@ const Sidebar = ({ collapsed }) => {
               icon: <img src={car} alt="car" />,
               label: <NavLink to={"cars"}>Cars Rent</NavLink>,
             },
-
             {
               key: "3",
-              icon: <AiOutlineUser size={28} className="text-[#90A3BF]" />,
+              icon: <AiOutlineUser size={28} color="#90A3BF" />,
               label: <NavLink to={"users"}>Users</NavLink>,
             },
 
             {
               key: "4",
-              icon: <BiCategory size={28} />,
+              icon: <BiCategory size={28} color="#90A3BF" />,
               label:<NavLink to={"category"}>Category</NavLink> 
               ,
             },
@@ -84,11 +81,6 @@ const Sidebar = ({ collapsed }) => {
               key: "5",
               icon: <img src={reim} alt="reim" />,
               label: <NavLink to={"reimburse"}>Reimburses</NavLink>,
-            },
-            {
-              key: "6",
-              icon: <img src={inbox} alt="inbox" />,
-              label: <NavLink to={"inbox"}>Inbox</NavLink>,
             },
             ]
             :
@@ -102,11 +94,6 @@ const Sidebar = ({ collapsed }) => {
                 key: "2",
                 icon: <img src={reim} alt="reim" />,
                 label: <NavLink to={"reimburse"}>Reimburse</NavLink>,
-              },
-              {
-                key: "3",
-                icon: <img src={inbox} alt="inbox" />,
-                label: <NavLink to={"inbox"}>Inbox</NavLink>,
               },
               ]
         }

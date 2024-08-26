@@ -50,6 +50,7 @@ const Create = () => {
   });
 
   const expectedFields = [
+    
     "name",
     "images",
     "description",

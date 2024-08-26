@@ -85,7 +85,7 @@ const Login = () => {
       wrapperCol={{
         span: 36,
       }}
-      className=' mt-[35px]'
+      className='pt-[30px]'
     >
       <Button loading={isLoading} disabled={isLoading} type="primary"  htmlType="submit" className='w-full'>
         Login

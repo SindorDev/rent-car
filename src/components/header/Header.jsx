@@ -1,16 +1,15 @@
 import { MdSpaceDashboard } from "react-icons/md"; 
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { AutoComplete, Form, Layout } from "antd";
+import { AutoComplete, Dropdown, Form, Layout, Typography } from "antd";
 import logo from "../../images/Logo.png"
 import searchBar from "../../images/search-normal.png"
 import filter from "../../images/filter.png"
-import heart from "../../images/heart.png"
-import bell from "../../images/notification.png"
 import profileAvatar from "../../images/Profil.png"
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import  useSearchParamsHook  from "../../hooks/useQueryParamas";
 import { useSearchCarsQuery } from "../../redux/api/cars-api";
+const { Text } = Typography;
 const { Header } = Layout;
 const HeaderComponent = () => {
   const [search, setSearch] = useState("");
@@ -54,7 +53,7 @@ const HeaderComponent = () => {
             <img src={logo} alt="" />
             </Link>
 
-            <div className="flex items-center w-full max-w-[500px] h-[45px] gap-[20px] border-[1px] border-[#C3D4E966]  py-[10px] px-[20px] rounded-[70px]">
+            <div className="flex search  items-center w-full max-w-[500px] h-[45px] gap-[20px] border-[1px] border-[#C3D4E966]  py-[10px] px-[20px] rounded-[70px]">
               <label htmlFor="search">
                 <img src={searchBar} alt="Search" />
               </label>
@@ -63,7 +62,7 @@ const HeaderComponent = () => {
                   name="search"  
                   rules={[{ required: false }]}
                 >
-                <AutoComplete                
+                <AutoComplete           
                   onKeyDown={ (e) => {
                     if (e.key === 'Enter') {
                       navigate(`/search?q=${search}`);   
@@ -80,7 +79,6 @@ const HeaderComponent = () => {
                       </Link>
                     ),
                   }))}
-                  className="search_input"
                   onSearch={(text) =>
                     text ? loadData(text) : loadData({ payload: [] })
                   }
@@ -92,21 +90,29 @@ const HeaderComponent = () => {
             </div>
           </div>
           <div className="flex items-center gap-5 mr-5">
-            <NavLink to={"heart"} className="flex items-center justify-center border-[1px] p-[7px] rounded-full ">
-              <img src={heart} alt="Heart" />
-            </NavLink>
-            
-            <NavLink to={"notifications"} className="flex items-center justify-center border-[1px] p-[7px] rounded-full ">
-              <img src={bell} alt="bell" />
-            </NavLink>
-            
-            <NavLink to={"/dashboard"} className="flex items-center justify-center border-[1px] p-[7px] rounded-full ">
-              <MdSpaceDashboard size={27} color="#3D5278" />
-            </NavLink>
-            
-            <NavLink to={"/dashboard/profile"}>
+            <Dropdown
+        menu={{
+          items: [
+            {
+              key: "1",
+              label: (
+                <NavLink
+                  to={"/dashboard"}
+                  className={"flex items-center gap-2"}
+                >
+                  <MdSpaceDashboard size={14} />
+                  <Text>Dashboard</Text>
+                </NavLink>
+              ),
+            },
+          ]
+        }}
+        placement="bottomRight"
+      >
+        <NavLink to={"/dashboard/profile"}>
               <img src={profileAvatar} className="w-[40px] h-[40px] rounded-full object-contain" alt="profile" />
             </NavLink>
+      </Dropdown>
           </div>
         </div>
       </Header>

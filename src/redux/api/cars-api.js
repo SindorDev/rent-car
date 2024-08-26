@@ -50,13 +50,7 @@ const carsApi = api.injectEndpoints({
             }),
             providesTags: ["Cars"]
         }),
-        getOrders: build.query({
-            query: () => ({
-                url: "/orders",
-            }),
-            providesTags: ["Cars"]
-        }),
     })
 });
 
-export const { useGetCarsQuery, useGetDetailsCarMutation, useSendCarFormMutation, useDeleteCarsMutation, useUpdateCarsMutation, useSearchCarsQuery, useGetOrdersQuery } = carsApi;
+export const { useGetCarsQuery, useGetDetailsCarMutation, useSendCarFormMutation, useDeleteCarsMutation, useUpdateCarsMutation, useSearchCarsQuery } = carsApi;

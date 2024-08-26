@@ -26,7 +26,13 @@ const CarDetails = () => {
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
+
+  const handleOrders = (data) => {
+    navigate("/orders", { state: data });
+  }
+
   return (
+
   <>
     <Container>
       <div>
@@ -36,9 +42,9 @@ const CarDetails = () => {
 
             <div>
 
-              <div className="bg-gray-100 p-2 w-full items-center flex justify-center  rounded-xl">
+              <div className="bg-gray-100 max-h-[430px] p-2 w-full items-center flex justify-center  rounded-xl">
                 <img
-                  className="rounded-xl"
+                  className="rounded-xl w-full h-[430px] object-contain"
                   src={selectedImage}
                   alt={payload?.payload?.name}
                 />
@@ -54,7 +60,7 @@ const CarDetails = () => {
                   src={image}
                   alt={payload?.payload?.name}
                   onClick={() => handleImageClick(image)}
-                  className={`cursor-pointer   rounded-2xl p-2 ${
+                  className={`cursor-pointer object-contain rounded-2xl p-2 ${
                     image === selectedImage
                       ? " rounded-2xl p-2 bg-blue-800 "
                       : ""
@@ -135,7 +141,7 @@ const CarDetails = () => {
                 </span>
               </div>
               <div>
-                <Button className="mt-2 flex max-w-max rounded bg-blue-600 px-8 py-[30px] text-center text-base font-semibold leading-normal text-white">
+                <Button type="primary" onClick={() => handleOrders(payload?.payload)} className="mt-2 flex max-w-max rounded bg-blue-600 px-8 py-[30px] text-center text-base font-semibold leading-normal text-white">
                   Rent Now
                 </Button>
               </div>

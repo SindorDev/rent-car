@@ -9,17 +9,23 @@ const Category = () => {
   const [deleteCategories, {data: deleteData, isSuccess}] = useDeleteCategoriesMutation()
   const [current, setCurrent] = useState(1);
   const [open, setOpen] = useState(false);
-
+  const [categoryData, setCategoryData] = useState([])
   const handleUserDelete = (id) => {
     deleteCategories(id);
   }
 
+
+  const handleCategoryUpdate = (category) => {
+    setCategoryData(category)
+    setOpen(true);
+  }
   useEffect(() => {
     if(isSuccess) {
       message.success(deleteData.message)
     }
   }, [deleteData, isSuccess])
   const columns = [
+
 
     {
       count: 1,
@@ -61,7 +67,7 @@ const Category = () => {
         <div className="flex items-center gap-2">
           <Button
           className="bg-yellow-400 text-white"
-            // onClick={() => handlePromoution(product._id)}
+            onClick={() => handleCategoryUpdate(product)}
           >
             Update
           </Button>
@@ -76,8 +82,7 @@ const Category = () => {
       ),
     },
   ];
-  
-  
+    
   return (
     <div>
         <div className="flex items-center justify-between">
@@ -93,7 +98,7 @@ const Category = () => {
     pagination={{ pageSize: 5, onChange: (page) => setCurrent(page), }}
   />
 
-    <CategoryModal open={open} setOpen={setOpen} />
+    <CategoryModal forceRender={true} categoryData={categoryData}  open={open} setOpen={setOpen} />
     </div>
   )
 }

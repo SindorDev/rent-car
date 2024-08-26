@@ -99,7 +99,7 @@ rules={[
     >
       <Input />
     </Form.Item>
-      <div className='flex gap-3 w-full'>
+      <div className='flex mb-[50px] gap-3 w-full'>
         
 
   <Form.Item
@@ -127,7 +127,7 @@ rules={[
       wrapperCol={{
         span: 36,
       }}
-      className='mt-[35px]'
+      className='!mt-[55px]'
     >
       <Button disabled={isLoading} loading={isLoading}  type="primary" htmlType="submit" className='w-full '>
         Register

@@ -1,14 +1,24 @@
 import { DashboardTitle } from "../../../utils/index"
-import { useGetOrdersQuery } from "../../../redux/api/cars-api"
-import { Button } from "antd"
+import { useDeleteOrdersMutation, useGetOrdersQuery } from "../../../redux/api/orders"
+import { Button, message } from "antd"
 import TableComponent from "../../../components/table/Table"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 const Reimburse = () => {
   const [current, setCurrent] = useState(1);
-  const {data, isLoading} = useGetOrdersQuery()
+  const {data, isLoading} = useGetOrdersQuery();
+  const [deleteOrders, {data: deleteData, isSuccess}] = useDeleteOrdersMutation()
+
+
+  const handleOrdersDelete = (id) => {
+    deleteOrders(id)
+  }
+
+  useEffect(() => {
+    if(isSuccess) {
+      message.success(deleteData?.message)
+    }
+  }, [deleteData, isSuccess])
   
-
-
   const columns = [
     {
       title: "No",
@@ -34,19 +44,35 @@ const Reimburse = () => {
     {
       key: "price",
       title: "Price",
-      dataIndex: ["car_id", "price"],
+      dataIndex: ["total_price"],
       render: (price) => `$${price}`,
     },
     {
-      key: "rent_price",
-      title: "Rent Price",
-      dataIndex: ["car_id", "rent_price"],
-      render: (rent_price) => `$${rent_price}`,
+      key: "quantity",
+      title: "Quantity",
+      dataIndex: ["quantity"],
+      render: (quantity) => `${quantity}`,
     },
     {
-      key: "seats",
-      title: "Seats",
-      dataIndex: ["car_id", "seats"],
+      key: "pay_method",
+      title: "Pay_method",
+      dataIndex: ["payment_method"],
+    },
+    
+    {
+      key: "pay_status",
+      title: "Pay_status",
+      dataIndex: ["payment_status"],
+    },
+    {
+      key: "fromDate",
+      title: "From Date",
+      dataIndex: ["fromDate"],
+    },
+    {
+      key: "toDate",
+      title: "To Date",
+      dataIndex: ["toDate"],
     },
     {
       key: "thumbnail",
@@ -57,19 +83,20 @@ const Reimburse = () => {
       ),
     },
     {
-      key: "transmission",
-      title: "Transmission",
-      dataIndex: ["car_id", "transmission"],
-    },
-    {
       key: "action",
       title: "Action",
-      render: () => (
+      render: (product) => (
         <div className="flex items-center gap-2">
+          <Button
+          className="bg-yellow-400 text-white"
+            // onClick={() => handleOrdersUpdate(product._id)}
+          >
+            Update
+          </Button>
           <Button
             danger
             type="primary"
-            // onClick={() => handleCarDelete(product._id)}
+            onClick={() => handleOrdersDelete(product._id)}
           >
             Delete
           </Button>

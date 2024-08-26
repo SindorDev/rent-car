@@ -28,13 +28,20 @@
 .ant-form {
     width: 100% !important;
 }
-.ant-form input {
-    border: none !important;
-}
-
 
 .slick-active img {
     animation: l 0.5s 0.45s forwards;
+}
+.ant-select-selector {
+    border: none !important;
+    outline:  none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+.ant-menu-item:has(.active) {
+    background-color: black !important;
+    padding-block: 25px !important;
+    color: #fff !important;
 }
 .ant-layout-sider-children {
     display: flex;
