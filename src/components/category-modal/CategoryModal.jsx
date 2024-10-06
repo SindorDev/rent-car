@@ -34,16 +34,14 @@ const CategoryModal = ({ open, setOpen, categoryData: updateData }) => {
     const filteredCarData = Object.fromEntries(
       Object.entries(categoryData).filter(([key]) => expectedFields.includes(key))
     );
-    if(updateData) {
+    if(updateData && updateData._id) {
       updateCategories({body: filteredCarData, id: updateData._id})
-    }
+   }
     else {
       createCategories(filteredCarData);
     }
   };
 
-  console.log(createData);
-  console.log(updateSuccessData);
   
   const handleCancel = () => {
     setOpen(false);

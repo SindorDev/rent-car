@@ -7,8 +7,6 @@ const Search = () => {
     const {getParam} = useSearchParamsHook();
     const {data} = useSearchCarsQuery({q:getParam("q")})
 
-    console.log(data);
-
   return (
     <div>
         <div className=" mt-[150px]">

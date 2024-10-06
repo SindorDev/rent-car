@@ -32,7 +32,6 @@ const HeaderComponent = () => {
     }
   };
 
-
   return (
     <div className="px-[20px]">
       <Header
